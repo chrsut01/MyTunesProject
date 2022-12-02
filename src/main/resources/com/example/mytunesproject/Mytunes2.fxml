@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mytunesproject.Controller">
+   <children>
+      <HBox layoutX="18.0" layoutY="138.0" prefHeight="479.0" prefWidth="884.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="240.0">
+               <children>
+                  <TableView prefHeight="434.0" prefWidth="233.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Name" />
+                      <TableColumn prefWidth="67.20001220703125" text="Song" />
+                        <TableColumn prefWidth="88.80000000000001" text="Time" />
+                    </columns>
+                  </TableView>
+                  <HBox prefHeight="63.0" prefWidth="240.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#newPlayList" text="New...">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#editPlayList" text="Edit...">
+                           <HBox.margin>
+                              <Insets left="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#deletePlayList" text="Delete">
+                           <HBox.margin>
+                              <Insets left="50.0" top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="479.0" prefWidth="191.0">
+               <children>
+                  <ListView maxWidth="210.0" prefHeight="427.0" prefWidth="194.0" />
+                  <HBox prefHeight="41.0" prefWidth="206.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#moveUp" text="UP">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../../OneDrive/Desktop/MyTunes/arrow%20up.jpg" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="0.0" prefWidth="0.0" text="DOWN">
+                           <HBox.margin>
+                              <Insets left="15.0" top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../../OneDrive/Desktop/MyTunes/arrow%20down.jpg" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteSongfromPlayList" prefHeight="22.0" prefWidth="38.0" text="Delete">
+                           <HBox.margin>
+                              <Insets left="40.0" top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#addSongPlaylist" text="ADD">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../OneDrive/Desktop/MyTunes/arrow%20add.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <VBox prefHeight="508.0" prefWidth="413.0">
+               <children>
+                  <TableView prefHeight="467.0" prefWidth="403.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Title" />
+                      <TableColumn prefWidth="103.99993133544922" text="Artist" />
+                        <TableColumn prefWidth="100.80000305175781" text="Genre" />
+                        <TableColumn prefWidth="123.1998291015625" text="Time" />
+                    </columns>
+                  </TableView>
+                  <HBox prefHeight="63.0" prefWidth="350.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#newSonglib" prefHeight="26.0" prefWidth="63.0" text="New...">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#editSongLib" prefHeight="26.0" prefWidth="61.0" text="Edit...">
+                           <HBox.margin>
+                              <Insets left="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#deletSongLib" prefHeight="22.0" prefWidth="58.0" text="Delete">
+                           <HBox.margin>
+                              <Insets left="40.0" top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#closeProgram" prefHeight="26.0" prefWidth="64.0" text="Close">
+                           <HBox.margin>
+                              <Insets left="140.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+      <Label layoutX="25.0" layoutY="107.0" text="Playlists">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="265.0" layoutY="108.0" text="Songs on  Playlist">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="506.0" layoutY="107.0" text="Songs">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="filterField" layoutX="696.0" layoutY="50.0" prefHeight="39.0" prefWidth="149.0" />
+      <Label layoutX="651.0" layoutY="59.0" text="Filter:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="852.0" layoutY="57.0" mnemonicParsing="false" onAction="#search" text="search" />
+      <Slider fx:id="volumeConttol" layoutX="63.0" layoutY="75.0" />
+      <TextField fx:id="songIsPlaying" layoutX="339.0" layoutY="40.0" prefHeight="39.0" prefWidth="191.0" text="...(none)...  is playing">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Pane layoutX="5.0" layoutY="9.0" prefHeight="54.0" prefWidth="306.0">
+         <children>
+            <Button layoutX="208.0" layoutY="19.0" mnemonicParsing="false" onAction="#forward" prefHeight="39.0" prefWidth="50.0" text="next">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic></Button>
+            <Button layoutX="110.0" layoutY="20.0" mnemonicParsing="false" onAction="#play" prefHeight="33.0" prefWidth="70.0" text="play/pause">
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic></Button>
+            <Button layoutX="31.0" layoutY="20.0" mnemonicParsing="false" onAction="#previous" prefHeight="33.0" prefWidth="50.0" text="prev">
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic></Button>
+         </children>
+      </Pane>
+   </children>
+</Pane>

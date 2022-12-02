@@ -18,21 +18,20 @@ public class Song {
             this.genre = genre;
             this.artist = artist;
             this.songTime = songTime;
-
         }
 
     public int getSongID() { return this.songID;
     }
 
-    public String getSongTitle() {  return this.songTitle;
+    public String getSongTitle() { return this.songTitle;
     }
 
     public String getGenre() { return this.genre;
     }
 
-    public String getArtist() {  return this.artist;
+    public String getArtist() { return this.artist;
     }
 
-    public int getSongTime() {  return this.songTime;
+    public int getSongTime() { return this.songTime;
     }
 }

@@ -16,5 +16,5 @@ public interface SongDao {
         public List<Playlist> getAllPlaylists(); // Read all playlists
 
         // TODO the other CRUD methods are placed here
-    }
+
 }

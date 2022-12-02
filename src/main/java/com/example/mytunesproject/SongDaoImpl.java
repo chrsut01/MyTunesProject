@@ -39,7 +39,7 @@ public class SongDaoImpl {
     }
 
     public List<Song> getAllSongs() {
-        List<Song> song = new ArrayList();
+        List<Song> songs = new ArrayList();
         try {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Song;");
             ResultSet rs = ps.executeQuery();
@@ -62,13 +62,10 @@ public class SongDaoImpl {
         return songs;
     }
 
-    @Override
-    public void savePlaylist(Playlist playlist) {
+   // @Override
+   // public void savePlaylist(Playlist playlist) {
+    //}
 
-    }
-
-    @Override
-    public List<Playlist> getAllPlaylists() {
-        return null;
-    }
+    //@Override
+    //public List<Playlist> getAllPlaylists() { return null;}
 }
