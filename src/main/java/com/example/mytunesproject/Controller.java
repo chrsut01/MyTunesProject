@@ -9,8 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
 
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class Controller {
@@ -20,25 +23,18 @@ public class Controller {
 
     @FXML
     private TextField insertArtist;
-
     @FXML
     private TextField insertFile;
-
     @FXML
     private TextField insertTime;
-
     @FXML
     private TextField insertTitle;
-
     @FXML
     private TextField filterField;
-
     @FXML
     private TextField songIsPlaying;
-
     @FXML
     private Slider volumeControl;
-
     @FXML
     private TextField playlistName;
 
@@ -62,57 +58,52 @@ public class Controller {
 
     }
 
-    /*  // Dialogen defineres med "ButtonTyes", hvilket betyder at vi kan bestemmer at
-        // dialogen afsluttes med at vi tester på knapperne
-        Dialog<ButtonType> dialog = new Dialog();
-
-        // Her sættes vinduet op
-        dialog.setTitle("Eksempel på dialog");
-        dialog.setHeaderText("Her kan stå noget tekst");
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        TextField felt1 = new TextField();
-        TextField felt2 = new TextField();
-        VBox box = new VBox(felt1, felt2);
-        dialog.getDialogPane().setContent(box);
-         // Her afsluttes dialogen med at man kan trykke på OK
-        Optional<ButtonType> knap = dialog.showAndWait();
-        // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
-        if (knap.get() == ButtonType.OK)
-            System.out.println("Felt1 = " + felt1.getText() + " felt2 = " + felt2.getText());
-    }*/
 
     @FXML
-    void newPlayList(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("NewEditPlaylist.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
+    void newPlayList(ActionEvent event) throws IOException{
+        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditPlaylist.fxml")));
+        Scene mainWindowScene = new Scene(mainWindowParent);
+        Stage newSongStage = new Stage();
+        newSongStage.setScene(mainWindowScene);
+        newSongStage.showAndWait();
     }
+
+
 
     @FXML
     void editPlayList(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("NewEditPlaylist.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
+        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditPlaylist.fxml")));
+        Scene mainWindowScene = new Scene(mainWindowParent);
+        Stage newSongStage = new Stage();
+        newSongStage.setScene(mainWindowScene);
+        newSongStage.showAndWait();
     }
+
+
     @FXML
     void deletePlayList(ActionEvent event) {    }
 
-    @FXML
-    void newSongLib(ActionEvent event) throws IOException{
-        root = FXMLLoader.load(getClass().getResource("NewEditSong.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
+
+
+   @FXML
+    void newSongLib(ActionEvent event) throws IOException {
+        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditSong.fxml")));
+        Scene mainWindowScene = new Scene(mainWindowParent);
+        Stage newSongStage = new Stage();
+        newSongStage.setScene(mainWindowScene);
+        newSongStage.showAndWait();
     }
+
+
+   
 
     @FXML
     void editSongLib(ActionEvent event) throws IOException{
-        root = FXMLLoader.load(getClass().getResource("NewEditSong.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
+        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditSong.fxml")));
+        Scene mainWindowScene = new Scene(mainWindowParent);
+        Stage newSongStage = new Stage();
+        newSongStage.setScene(mainWindowScene);
+        newSongStage.showAndWait();
     }
 
     @FXML

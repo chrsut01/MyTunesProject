@@ -72,12 +72,12 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="0.0" prefWidth="0.0" text="DOWN">
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="21.0" prefWidth="54.0" text="DOWN">
                            <HBox.margin>
                               <Insets left="15.0" top="10.0" />
                            </HBox.margin>
                            <font>
-                              <Font size="10.0" />
+                              <Font size="2.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="31.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
@@ -87,9 +87,9 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteSongfromPlayList" prefHeight="22.0" prefWidth="38.0" text="Delete">
+                        <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteSongfromPlayList" text="Delete">
                            <HBox.margin>
-                              <Insets left="40.0" top="10.0" />
+                              <Insets left="18.0" top="10.0" />
                            </HBox.margin>
                            <font>
                               <Font size="10.0" />
@@ -107,7 +107,7 @@
             </VBox>
             <Button mnemonicParsing="false" onAction="#addSongPlaylist" text="ADD">
                <font>
-                  <Font size="10.0" />
+                  <Font size="6.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
@@ -182,7 +182,17 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="852.0" layoutY="57.0" mnemonicParsing="false" onAction="#search" text="search" />
+      <Button layoutX="852.0" layoutY="54.0" mnemonicParsing="false" onAction="#search" prefWidth="18.0" text="search">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Search%20Button.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font size="10.0" />
+         </font></Button>
       <Slider fx:id="volumeControl" layoutX="63.0" layoutY="75.0" />
       <TextField fx:id="songIsPlaying" layoutX="339.0" layoutY="40.0" prefHeight="39.0" prefWidth="191.0" text="...(none)...  is playing">
          <font>

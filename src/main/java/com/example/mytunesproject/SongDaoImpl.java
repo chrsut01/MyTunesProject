@@ -21,7 +21,7 @@ public class SongDaoImpl {
         System.out.println("connected to the database... ");
     }
 
-    public void saveBook(Song song) {
+    public void saveSong(Song song) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO SONG VALUES(?,?,?,?,?);");
             ps.setInt(1, song.getSongID());
@@ -34,7 +34,7 @@ public class SongDaoImpl {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("can not insert record");
+            System.err.println("cannot insert record");
         }
     }
 
@@ -57,7 +57,7 @@ public class SongDaoImpl {
             }
 
         } catch (SQLException e) {
-            System.err.println("can not access records");
+            System.err.println("cannot access records");
         }
         return songs;
     }

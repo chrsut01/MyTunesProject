@@ -12,8 +12,9 @@ public class Playlist {
     public Playlist(int playlistID, String playlistName){
         this.playlistID = playlistID;
         this.playlistName = playlistName;
-
-
-
     }
+
+    public int getPlaylistID() { return playlistID; }
+
+    public String getPlaylistName() { return playlistName;  }
 }
