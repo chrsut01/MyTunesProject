@@ -3,6 +3,7 @@ package com.example.mytunesproject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -13,10 +14,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 
-public class Controller {
+public class Controller implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -39,15 +42,39 @@ public class Controller {
     private TextField playlistName;
 
     @FXML
-    private final TableView<Object> Playlists = new TableView<>();
+    private final TableView<Playlist> Playlists = new TableView<>();
 
     @FXML
-    private final TableView<Object> Songs = new TableView<>();
+    private final TableView<Song> Songs = new TableView<>();
 
     @FXML
-    private ListView<Object> SoP = new ListView<>();
+    private ListView<SongsOnPlaylist> SoP = new ListView<>();
 
+   
+        //@FXML
+        //TableView<MyModel> tableView;
 
+        public void MyController() {
+            Songs.getItems().addAll(getDataFromSource()); // results in NullPointerException, as tableView is null at this point.
+            Playlists.getItems().addAll(getDataFromSource()); // results in NullPointerException, as tableView is null at this point.
+            SoP.getItems().addAll(getDataFromSource()); // results in NullPointerException, as tableView is null at this point.
+        }
+    private Songs getDataFromSource() {
+        return Songs;
+    }
+    private Playlists getDataFromSource() {
+        return Playlists;
+    }
+    private SoP getDataFromSource() {
+        return SoP;
+    }
+
+        @FXML
+        public void initialize() {
+            SongDaoImpl songDao = new SongDaoImpl.getAllSongs();
+           // .getItems().addAll(getDataFromSource()); // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
+        }
+    
     @FXML
     void addSongPlaylist(ActionEvent event) {
 
@@ -220,4 +247,8 @@ public class Controller {
     }
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }
