@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaylistDaoImpl {
+public class PlaylistDaoImpl implements PlaylistDao {
 
 
     private Connection con; // forbindelsen til databasen

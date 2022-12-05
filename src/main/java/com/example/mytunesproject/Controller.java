@@ -3,15 +3,14 @@ package com.example.mytunesproject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.Media;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -40,6 +39,16 @@ public class Controller {
     private TextField playlistName;
 
     @FXML
+    private final TableView<Object> Playlists = new TableView<>();
+
+    @FXML
+    private final TableView<Object> Songs = new TableView<>();
+
+    @FXML
+    private ListView<Object> SoP = new ListView<>();
+
+
+    @FXML
     void addSongPlaylist(ActionEvent event) {
 
     }
@@ -59,6 +68,10 @@ public class Controller {
 
     }
 
+    //private static final String DEFAULT_QUERY = "SELECT FROM Songs";
+
+
+
 
     @FXML
     void newPlayList(ActionEvent event) throws IOException{
@@ -66,6 +79,7 @@ public class Controller {
         Scene mainWindowScene = new Scene(mainWindowParent);
         Stage newSongStage = new Stage();
         newSongStage.setScene(mainWindowScene);
+        newSongStage.initModality(Modality.APPLICATION_MODAL);
         newSongStage.showAndWait();
     }
 
@@ -77,6 +91,7 @@ public class Controller {
         Scene mainWindowScene = new Scene(mainWindowParent);
         Stage newSongStage = new Stage();
         newSongStage.setScene(mainWindowScene);
+        newSongStage.initModality(Modality.APPLICATION_MODAL);
         newSongStage.showAndWait();
     }
 
@@ -90,9 +105,10 @@ public class Controller {
     void newSongLib(ActionEvent event) throws IOException {
         Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditSong.fxml")));
         Scene mainWindowScene = new Scene(mainWindowParent);
-        Stage newSongStage = new Stage();
-        newSongStage.setScene(mainWindowScene);
-        newSongStage.showAndWait();
+       Stage newSongStage = new Stage();
+       newSongStage.setScene(mainWindowScene);
+       newSongStage.initModality(Modality.APPLICATION_MODAL);
+       newSongStage.showAndWait();
     }
 
 
@@ -104,9 +120,29 @@ public class Controller {
         Scene mainWindowScene = new Scene(mainWindowParent);
         Stage newSongStage = new Stage();
         newSongStage.setScene(mainWindowScene);
-        stage.initModality(Modality.APPLICATION_MODAL);
+        newSongStage.initModality(Modality.APPLICATION_MODAL);
         newSongStage.showAndWait();
+       // System.out.println();
     }
+
+    /*
+     private void showWindow(String message) throws IOException {
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("Dialog.fxml"));
+        loader.setController(new DialogController(message));
+        // Root loades og den nye stage tilføjes
+        final Parent root = loader.load();
+        final Scene scene = new Scene(root, 250, 150);
+        Stage stage = new Stage();
+        // Stage sættes modal, så vinduet skal besvares
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initOwner(emailField.getScene().getWindow());
+        stage.setScene(scene);
+        stage.show();
+    }*/
+
+
+
 /*
     stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UNDECORATED);

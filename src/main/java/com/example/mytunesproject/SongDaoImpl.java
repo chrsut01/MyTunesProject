@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongDaoImpl {
+public class SongDaoImpl implements SongDao{
 
 
     private Connection con; // forbindelsen til databasen
@@ -15,7 +15,7 @@ public class SongDaoImpl {
 
             con = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-F11OIRMM:1433;databaseName=Mytunes;userName=sa;password=123456;encrypt=true;trustServerCertificate=true");
         } catch (SQLException e) {
-            System.err.println("can not create connection" + e.getMessage());
+            System.err.println("cannot create connection" + e.getMessage());
         }
 
         System.out.println("connected to the database... ");
@@ -39,7 +39,7 @@ public class SongDaoImpl {
     }
 
     public List<Song> getAllSongs() {
-        List<Song> songs = new ArrayList();
+        List<Song> songs = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Song;");
             ResultSet rs = ps.executeQuery();
@@ -53,7 +53,7 @@ public class SongDaoImpl {
                 int songTime = rs.getInt(5);
 
                 song = new Song(songID, songTitle, genre, artist, songTime);
-                songs.add(song);
+
             }
 
         } catch (SQLException e) {
@@ -62,7 +62,22 @@ public class SongDaoImpl {
         return songs;
     }
 
-   // @Override
+    @Override
+    public void updateSong(Song song) {
+
+    }
+
+    @Override
+    public void deleteSong(Song song) {
+
+    }
+
+   /* @Override
+    public void deleteSong(Song song) {
+        songs.remove(song.getClass());
+    }*/
+
+    // @Override
    // public void savePlaylist(Playlist playlist) {
     //}
 

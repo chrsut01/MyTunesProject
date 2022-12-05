@@ -11,6 +11,9 @@ public interface SongDao {
 
         public List<Song> getAllSongs(); // Read all songs
 
+        public void updateSong(Song song);
+        public void deleteSong(Song song);
+
        // public void savePlaylist(Playlist playlist); // Create a playlist
 
         //public List<Playlist> getAllPlaylists(); // Read all playlists

@@ -21,7 +21,7 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="240.0">
                <children>
-                  <TableView prefHeight="434.0" prefWidth="233.0">
+                  <TableView fx:id="Playlists" prefHeight="434.0" prefWidth="233.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="Name" />
                       <TableColumn prefWidth="67.20001220703125" text="Song" />
@@ -54,7 +54,7 @@
             </VBox>
             <VBox prefHeight="479.0" prefWidth="191.0">
                <children>
-                  <ListView maxWidth="210.0" prefHeight="427.0" prefWidth="194.0" />
+                  <ListView fx:id="SoP" maxWidth="210.0" prefHeight="427.0" prefWidth="194.0" />
                   <HBox prefHeight="41.0" prefWidth="206.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#moveUp" text="UP">
@@ -119,7 +119,7 @@
             </Button>
             <VBox prefHeight="508.0" prefWidth="413.0">
                <children>
-                  <TableView prefHeight="467.0" prefWidth="403.0">
+                  <TableView fx:id="Songs" prefHeight="467.0" prefWidth="403.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="Title" />
                       <TableColumn prefWidth="103.99993133544922" text="Artist" />
