@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.Media;
@@ -95,7 +96,7 @@ public class Controller {
     }
 
 
-   
+
 
     @FXML
     void editSongLib(ActionEvent event) throws IOException{
@@ -103,8 +104,17 @@ public class Controller {
         Scene mainWindowScene = new Scene(mainWindowParent);
         Stage newSongStage = new Stage();
         newSongStage.setScene(mainWindowScene);
+        stage.initModality(Modality.APPLICATION_MODAL);
         newSongStage.showAndWait();
     }
+/*
+    stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initOwner(emailField.getScene().getWindow());
+        stage.setScene(scene);
+        stage.show();
+  */
+
 
     @FXML
     void forward(ActionEvent event) {
