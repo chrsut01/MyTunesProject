@@ -7,12 +7,12 @@ import java.util.List;
 public interface SongDao {
 
 
-        public void saveSong(Song song); // Create a song
+        void saveSong(Song song); // Create a song
 
-        public List<Song> getAllSongs(); // Read all songs
+        List<Song> getAllSongs(); // Read all songs
 
-        public void updateSong(Song song);
-        public void deleteSong(Song song);
+        void updateSong(Song song);
+        void deleteSong(Song song);
 
        // public void savePlaylist(Playlist playlist); // Create a playlist
 

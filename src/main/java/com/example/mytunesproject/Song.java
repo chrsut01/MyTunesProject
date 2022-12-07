@@ -7,16 +7,16 @@ public class Song {
 
         private int songID;
         private String songTitle;
-        private String genre;
         private String artist;
+        private String genre;
         private int songTime;
-    public String toString() { return songID + songTitle + genre + artist + songTime;}
+    public String toString() { return songID + songTitle + artist + genre + songTime;}
 
-        public Song(int songID, String songTitle, String genre, String artist, int songTime) {
+        public Song(int songID, String songTitle, String artist, String genre, int songTime) {
             this.songID = songID;
             this.songTitle = songTitle;
-            this.genre = genre;
             this.artist = artist;
+            this.genre = genre;
             this.songTime = songTime;
         }
 

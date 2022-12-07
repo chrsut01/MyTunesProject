@@ -1,25 +1,28 @@
 package com.example.mytunesproject;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 
-public class Controller implements Initializable {
+public class Controller /*implements Initializable*/ {
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -42,39 +45,98 @@ public class Controller implements Initializable {
     private TextField playlistName;
 
     @FXML
-    private final TableView<Playlist> Playlists = new TableView<>();
+    private TableView<Playlist> tbPlaylists;
 
     @FXML
-    private final TableView<Song> Songs = new TableView<>();
+    private TableView<Song> tbSongs;
+
+
+    // Def. af kolonnerne
+       @FXML
+    private TableColumn<Song, String> tblClmnSongTitle = new TableColumn<>();
 
     @FXML
-    private ListView<SongsOnPlaylist> SoP = new ListView<>();
+    private TableColumn<Song, String>  tblClmnSongArtist = new TableColumn<>();
 
-   
-        //@FXML
-        //TableView<MyModel> tableView;
+    @FXML
+    private TableColumn<Song, String>  tblClmnSongGenre = new TableColumn<>();
 
-        public void MyController() {
-            Songs.getItems().addAll(getDataFromSource()); // results in NullPointerException, as tableView is null at this point.
-            Playlists.getItems().addAll(getDataFromSource()); // results in NullPointerException, as tableView is null at this point.
-            SoP.getItems().addAll(getDataFromSource()); // results in NullPointerException, as tableView is null at this point.
-        }
-    private Songs getDataFromSource() {
-        return Songs;
-    }
-    private Playlists getDataFromSource() {
-        return Playlists;
-    }
-    private SoP getDataFromSource() {
-        return SoP;
-    }
+    @FXML
+    private TableColumn<Song, Integer> tblClmnSongTime = new TableColumn<Song, Integer>();
 
-        @FXML
+
+    @FXML
+    private ListView<SongsOnPlaylist> soP;
+
+
+
+   private SongDaoImpl songDao; //SongDao reference variabel
+    //@FXML
+
+//TableView<MyModel> tableView;
+    public void MyController() {
+             }
+
+
+ /* @Override
+    public void initialize (URL url, ResourceBundle resourceBundle) {
+        tblClmnSongTitle.setCellValueFactory(new PropertyValueFactory<>("songTitle"));
+        tblClmnSongArtist.setCellValueFactory(new PropertyValueFactory<Song, String>("Artist"));
+        tblClmnSongGenre.setCellValueFactory(new PropertyValueFactory<Song, String>("Genre"));
+        //tblClmnSongTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSongTime()));
+
+        //initSongTable();
+
+    }*/
+
+
+    // Def. af listen der holder dataene
+  /*  private final ObservableList<Song> song = FXCollections.observableArrayList();
+    private ObservableList<Song> loadAllSongs() {
+        ObservableList<Song> songs = FXCollections.observableArrayList(); //Lav en tom observableList
+        songDao = new SongDaoImpl(); //Opret songDao objekt
+        songs.addAll(songDao.getAllSongs()); //tilfÃ¸j alle sange til variabel.
+
+        return songs;
+    }*/
+
+  // private void initSongTable(){
+    //   tblClmnSongTitle.setCellValueFactory(new PropertyValueFactory<>("songTitle"));
+       //Song.setItems(songDao.getAllSongs());
+       // tblClmnSongTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSongTitle()));
+        //tblClmnSongArtist.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getArtist()));
+        //tblClmnSongGenre.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getGenre()));
+        //tblClmnSongTime.setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getSongTime()));
+
+        //songs.setItems(loadAllSongs());
+   // }
+       /* @FXML
         public void initialize() {
             SongDaoImpl songDao = new SongDaoImpl.getAllSongs();
            // .getItems().addAll(getDataFromSource()); // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
-        }
-    
+        }*/
+
+    private final ObservableList<Song> song = FXCollections.observableArrayList();
+    public void initialize() {
+        // Kolonnerne sættes op med forbindelse til klassen Song med hver sit felt
+        tblClmnSongTitle.setCellValueFactory(new PropertyValueFactory<Song, String>("songTitle"));
+        tblClmnSongArtist.setCellValueFactory(new PropertyValueFactory<Song, String>("Artist"));
+        tblClmnSongGenre.setCellValueFactory(new PropertyValueFactory<Song, String>("Genre"));
+        tblClmnSongTime.setCellValueFactory(new PropertyValueFactory<Song, Integer>("songTime"));
+
+        // Data lægges i listen som objekterne af klassen Person
+        song.add(new Song(3,"Crazy Train", "Ozzy", "Rock", 333));
+        song.add(new Song(4,"Jingle Bells", "Cash", "Julesang", 222));
+        song.add(new Song(5,"Smooth C.", "MJ", "plop", 444));
+        song.add(new Song(6,"Memories", "Patty Lapone", "musical", 550));
+
+
+        // Data lægges over i tabellen
+        tbSongs.setItems(song);
+    }
+
+
+
     @FXML
     void addSongPlaylist(ActionEvent event) {
 
@@ -94,11 +156,6 @@ public class Controller implements Initializable {
     void deleteSongfromPlayList(ActionEvent event) {
 
     }
-
-    //private static final String DEFAULT_QUERY = "SELECT FROM Songs";
-
-
-
 
     @FXML
     void newPlayList(ActionEvent event) throws IOException{
@@ -149,7 +206,6 @@ public class Controller implements Initializable {
         newSongStage.setScene(mainWindowScene);
         newSongStage.initModality(Modality.APPLICATION_MODAL);
         newSongStage.showAndWait();
-       // System.out.println();
     }
 
     /*
@@ -193,10 +249,6 @@ public class Controller implements Initializable {
     void moveUp(ActionEvent event) {
 
     }
-
-
-
-
 
     @FXML
     void play(ActionEvent event) {
@@ -247,8 +299,8 @@ public class Controller implements Initializable {
     }
 
 
-    @Override
+   /* @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
+    }*/
 }
