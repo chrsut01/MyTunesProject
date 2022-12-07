@@ -7,9 +7,9 @@ public class DaoPatternDemo {
 
 
         //print all songs
-        for (Song song : SongDao.getAllSongs()) {
-            System.out.println("Song: [songID : " + song.getSongID() + ", Title : " + song.getSongTitle() + " ]");
-        }
+      //  for (Song song : SongDao.getAllSongs()) {
+      //      System.out.println("Song: [songID : " + song.getSongID() + ", Title : " + song.getSongTitle() + " ]");
+      //  }
     }
 
 /*
