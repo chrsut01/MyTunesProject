@@ -6,9 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.ListView;
@@ -19,7 +21,9 @@ import javafx.scene.control.TextField;
 
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 
 public class Controller /*implements Initializable*/ {
@@ -35,6 +39,13 @@ public class Controller /*implements Initializable*/ {
     private TextField insertTime;
     @FXML
     private TextField insertTitle;
+    @FXML
+    private Pane programPane;
+    @FXML
+    private Pane newEditSong;
+    @FXML
+    private Pane newEditPlaylist;
+
     @FXML
     private TextField filterField;
     @FXML
@@ -78,20 +89,19 @@ public class Controller /*implements Initializable*/ {
              }
 
 
- /* @Override
+  /*@Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
         tblClmnSongTitle.setCellValueFactory(new PropertyValueFactory<>("songTitle"));
         tblClmnSongArtist.setCellValueFactory(new PropertyValueFactory<Song, String>("Artist"));
         tblClmnSongGenre.setCellValueFactory(new PropertyValueFactory<Song, String>("Genre"));
-        //tblClmnSongTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSongTime()));
+        tblClmnSongTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSongTime()));
 
-        //initSongTable();
-
+        initSongTable();
     }*/
 
 
     // Def. af listen der holder dataene
-  /*  private final ObservableList<Song> song = FXCollections.observableArrayList();
+ /*   private final ObservableList<Song> song = FXCollections.observableArrayList();
     private ObservableList<Song> loadAllSongs() {
         ObservableList<Song> songs = FXCollections.observableArrayList(); //Lav en tom observableList
         songDao = new SongDaoImpl(); //Opret songDao objekt
@@ -100,22 +110,24 @@ public class Controller /*implements Initializable*/ {
         return songs;
     }*/
 
-  // private void initSongTable(){
-    //   tblClmnSongTitle.setCellValueFactory(new PropertyValueFactory<>("songTitle"));
-       //Song.setItems(songDao.getAllSongs());
-       // tblClmnSongTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSongTitle()));
-        //tblClmnSongArtist.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getArtist()));
-        //tblClmnSongGenre.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getGenre()));
-        //tblClmnSongTime.setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getSongTime()));
+   /*private void initSongTable(){
+        //tblClmnSongTitle.setCellValueFactory(new PropertyValueFactory<>("songTitle"));
+        //Song.setItems(songDao.getAllSongs());
+        tblClmnSongTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSongTitle()));
+        tblClmnSongArtist.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getArtist()));
+        tblClmnSongGenre.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getGenre()));
+        tblClmnSongTime.setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getSongTime()));
 
-        //songs.setItems(loadAllSongs());
-   // }
+        songs.setItems(loadAllSongs());
+   }*/
        /* @FXML
         public void initialize() {
             SongDaoImpl songDao = new SongDaoImpl.getAllSongs();
            // .getItems().addAll(getDataFromSource()); // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
         }*/
 
+
+    /* //FROM ERIK ON TUESDAY:
     private final ObservableList<Song> song = FXCollections.observableArrayList();
     public void initialize() {
         // Kolonnerne sættes op med forbindelse til klassen Song med hver sit felt
@@ -130,10 +142,9 @@ public class Controller /*implements Initializable*/ {
         song.add(new Song(5,"Smooth C.", "MJ", "plop", 444));
         song.add(new Song(6,"Memories", "Patty Lapone", "musical", 550));
 
-
         // Data lægges over i tabellen
         tbSongs.setItems(song);
-    }
+    }*/
 
 
 
@@ -142,10 +153,6 @@ public class Controller /*implements Initializable*/ {
 
     }
 
-    @FXML
-    void closeProgram(ActionEvent event) {
-
-    }
 
     @FXML
     void deletSongLib(ActionEvent event) {
@@ -187,8 +194,8 @@ public class Controller /*implements Initializable*/ {
 
    @FXML
     void newSongLib(ActionEvent event) throws IOException {
-        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditSong.fxml")));
-        Scene mainWindowScene = new Scene(mainWindowParent);
+       Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditSong.fxml")));
+       Scene mainWindowScene = new Scene(mainWindowParent);
        Stage newSongStage = new Stage();
        newSongStage.setScene(mainWindowScene);
        newSongStage.initModality(Modality.APPLICATION_MODAL);
@@ -268,7 +275,12 @@ public class Controller /*implements Initializable*/ {
 
     @FXML
     void cancelSongInfo(ActionEvent event) {
-
+        insertTitle.clear();
+        insertArtist.clear();
+        insertTime.clear();
+        insertFile.clear();
+        stage = (Stage) newEditSong.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -286,17 +298,29 @@ public class Controller /*implements Initializable*/ {
 
     }
 
-
-
     @FXML
-    void cancelEdit(ActionEvent event) {
+    void cancelEditPlaylist(ActionEvent event) {
+        playlistName.clear();
+        stage = (Stage) newEditPlaylist.getScene().getWindow();
+        stage.close();
 
     }
 
+
     @FXML
-    void saveEdit(ActionEvent event) {
+    void saveEditPlaylist(ActionEvent event) {
 
     }
+    @FXML
+    void closeProgram(ActionEvent event) {
+        stage = (Stage) programPane.getScene().getWindow();
+        stage.close();
+    }
+
+   /* @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }*/
 
 
    /* @Override

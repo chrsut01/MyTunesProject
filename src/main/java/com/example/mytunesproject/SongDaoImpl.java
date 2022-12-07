@@ -11,9 +11,7 @@ public class SongDaoImpl implements SongDao{
     private Connection con; // forbindelsen til databasen
 
     public SongDaoImpl() {
-        try {
-
-            con = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-F11OIRMM:1433;databaseName=Mytunes;userName=sa;password=123456;encrypt=true;trustServerCertificate=true");
+        try { Connection con = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-F11OIRMM:1433;databaseName=Mytunes;userName=sa;password=123456;encrypt=true;trustServerCertificate=true");
         } catch (SQLException e) {
             System.err.println("cannot create connection" + e.getMessage());
         }

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="311.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mytunesproject.Controller">
+<Pane fx:id="newEditPlaylist" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="311.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mytunesproject.Controller">
    <children>
       <Label layoutX="101.0" layoutY="26.0" text="New/Edit Playlist">
          <font>
@@ -14,8 +14,8 @@
          </font>
       </Label>
       <Label layoutX="50.0" layoutY="71.0" text="Name:" />
-      <Button layoutX="219.0" layoutY="119.0" mnemonicParsing="false" onAction="#saveEdit" text="Save" />
-      <Button layoutX="144.0" layoutY="119.0" mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
+      <Button layoutX="219.0" layoutY="119.0" mnemonicParsing="false" onAction="#saveEditPlaylist" text="Save" />
+      <Button layoutX="144.0" layoutY="119.0" mnemonicParsing="false" onAction="#cancelEditPlaylist" text="Cancel" />
       <TextField fx:id="playlistName" layoutX="103.0" layoutY="68.0" prefHeight="25.0" prefWidth="155.0" />
    </children>
 </Pane>

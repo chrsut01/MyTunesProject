@@ -22,10 +22,15 @@ public class Song {
 
     public int getSongID() { return this.songID;
     }
+    public int setSongID() {
+        return songID;
+    }
 
     public String getSongTitle() { return this.songTitle;
     }
-
+    public void setSongTitle(String songTitle) {
+        this.songTitle = songTitle;
+    }
     public String getGenre() { return this.genre;
     }
 
@@ -34,4 +39,16 @@ public class Song {
 
     public int getSongTime() { return this.songTime;
     }
-}
+
+   // public class Student {
+        //private String name;
+        //private int rollNo;
+
+        //Student(String name, int rollNo){
+         //   this.name = name;
+          //  this.rollNo = rollNo;
+        //}
+
+
+
+    }

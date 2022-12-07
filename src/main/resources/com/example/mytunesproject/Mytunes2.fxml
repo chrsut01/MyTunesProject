@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mytunesproject.Controller">
+<Pane fx:id="programPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mytunesproject.Controller">
    <children>
       <HBox layoutX="18.0" layoutY="138.0" prefHeight="479.0" prefWidth="884.0">
          <children>
@@ -182,7 +182,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="852.0" layoutY="54.0" mnemonicParsing="false" onAction="#search" prefWidth="18.0" text="search">
+      <Button layoutX="852.0" layoutY="54.0" mnemonicParsing="false" onAction="#search" prefWidth="18.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -201,7 +201,7 @@
       </TextField>
       <Pane layoutX="5.0" layoutY="9.0" prefHeight="54.0" prefWidth="306.0">
          <children>
-            <Button layoutX="169.0" layoutY="21.0" mnemonicParsing="false" onAction="#forward" prefHeight="0.0" prefWidth="26.0" text="next">
+            <Button layoutX="169.0" layoutY="21.0" mnemonicParsing="false" onAction="#forward" prefHeight="0.0" prefWidth="26.0">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
