@@ -5,8 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -21,13 +19,7 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="240.0">
                <children>
-                  <TableView fx:id="tbPlaylists" prefHeight="434.0" prefWidth="233.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="Name" />
-                      <TableColumn prefWidth="67.20001220703125" text="Song" />
-                        <TableColumn prefWidth="88.80000000000001" text="Time" />
-                    </columns>
-                  </TableView>
+                  <ListView fx:id="playlistLV" prefHeight="454.0" prefWidth="236.0" />
                   <HBox prefHeight="63.0" prefWidth="240.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#newPlayList" text="New...">
@@ -119,14 +111,7 @@
             </Button>
             <VBox prefHeight="508.0" prefWidth="413.0">
                <children>
-                  <TableView fx:id="tbSongs" prefHeight="467.0" prefWidth="403.0">
-                    <columns>
-                      <TableColumn fx:id="tblClmnSongTitle" prefWidth="75.0" text="Title" />
-                      <TableColumn fx:id="tblClmnSongArtist" prefWidth="103.99993133544922" text="Artist" />
-                        <TableColumn fx:id="tblClmnSongGenre" prefWidth="100.80000305175781" text="Genre" />
-                        <TableColumn fx:id="tblClmnSongTime" prefWidth="123.1998291015625" text="Time" />
-                    </columns>
-                  </TableView>
+                  <ListView fx:id="songLV" prefHeight="449.0" prefWidth="406.0" />
                   <HBox prefHeight="63.0" prefWidth="350.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#newSongLib" prefHeight="26.0" prefWidth="63.0" text="New...">
