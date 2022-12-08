@@ -11,7 +11,7 @@ public class SongDaoImpl implements SongDao{
     private Connection con; // forbindelsen til databasen
 
     public SongDaoImpl() {
-        try { Connection con = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-F11OIRMM:1433;databaseName=Mytunes;userName=sa;password=123456;encrypt=true;trustServerCertificate=true");
+        try { con = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-F11OIRMM:1433;databaseName=Mytunes;userName=sa;password=123456;encrypt=true;trustServerCertificate=true");
         } catch (SQLException e) {
             System.err.println("cannot create connection" + e.getMessage());
         }
@@ -51,6 +51,7 @@ public class SongDaoImpl implements SongDao{
                 int songTime = rs.getInt(5);
 
                 song = new Song(songID, songTitle, genre, artist, songTime);
+                songs.add(song);
 
             }
 
@@ -58,6 +59,7 @@ public class SongDaoImpl implements SongDao{
             System.err.println("cannot access records");
         }
         return songs;
+
     }
 
     @Override

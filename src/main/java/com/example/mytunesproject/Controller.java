@@ -81,7 +81,7 @@ public class Controller /*implements Initializable*/ {
 
 
 
-   private SongDaoImpl songDao; //SongDao reference variabel
+   private SongDao songDao = new SongDaoImpl(); //SongDao reference variabel
     //@FXML
 
 //TableView<MyModel> tableView;
@@ -89,63 +89,51 @@ public class Controller /*implements Initializable*/ {
              }
 
 
-  /*@Override
+  //@Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
         tblClmnSongTitle.setCellValueFactory(new PropertyValueFactory<>("songTitle"));
         tblClmnSongArtist.setCellValueFactory(new PropertyValueFactory<Song, String>("Artist"));
         tblClmnSongGenre.setCellValueFactory(new PropertyValueFactory<Song, String>("Genre"));
-        tblClmnSongTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSongTime()));
+        tblClmnSongTime.setCellValueFactory((new PropertyValueFactory<>("songTime")));
 
         initSongTable();
-    }*/
+    }
 
 
-    // Def. af listen der holder dataene
- /*   private final ObservableList<Song> song = FXCollections.observableArrayList();
+    //Def. af listen der holder dataene
+    private final ObservableList<Song> song = FXCollections.observableArrayList();
     private ObservableList<Song> loadAllSongs() {
         ObservableList<Song> songs = FXCollections.observableArrayList(); //Lav en tom observableList
         songDao = new SongDaoImpl(); //Opret songDao objekt
         songs.addAll(songDao.getAllSongs()); //tilfÃ¸j alle sange til variabel.
 
         return songs;
-    }*/
+    }
 
-   /*private void initSongTable(){
+ private void initSongTable(){
         //tblClmnSongTitle.setCellValueFactory(new PropertyValueFactory<>("songTitle"));
         //Song.setItems(songDao.getAllSongs());
         tblClmnSongTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSongTitle()));
         tblClmnSongArtist.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getArtist()));
         tblClmnSongGenre.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getGenre()));
-        tblClmnSongTime.setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getSongTime()));
+       // tblClmnSongTime.setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getSongTime()));
 
-        songs.setItems(loadAllSongs());
-   }*/
-       /* @FXML
+        //songs.setItems(loadAllSongs());
+   }
+        @FXML
         public void initialize() {
-            SongDaoImpl songDao = new SongDaoImpl.getAllSongs();
+           /* try {
+                songDao.getAllSongs().add(tblClmnSongTitle.get().getSelectedItem());
+                Ordre valgtordre = (Ordre) ordreList.getSelectionModel().getSelectedItem();
+                Vare vare = (Vare) vareNrBeskriv.getSelectionModel().getSelectedItem();
+                valgtordre.addVare(vare);
+            } catch (Exception e) {
+                System.out.println("Noget gik galt, tjek om der er insat et valid nr");
+            }*/
+            //SongDaoImpl songDao = new SongDaoImpl.getAllSongs();
+            System.out.println(songDao.getAllSongs());
            // .getItems().addAll(getDataFromSource()); // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
-        }*/
-
-
-    /* //FROM ERIK ON TUESDAY:
-    private final ObservableList<Song> song = FXCollections.observableArrayList();
-    public void initialize() {
-        // Kolonnerne sættes op med forbindelse til klassen Song med hver sit felt
-        tblClmnSongTitle.setCellValueFactory(new PropertyValueFactory<Song, String>("songTitle"));
-        tblClmnSongArtist.setCellValueFactory(new PropertyValueFactory<Song, String>("Artist"));
-        tblClmnSongGenre.setCellValueFactory(new PropertyValueFactory<Song, String>("Genre"));
-        tblClmnSongTime.setCellValueFactory(new PropertyValueFactory<Song, Integer>("songTime"));
-
-        // Data lægges i listen som objekterne af klassen Person
-        song.add(new Song(3,"Crazy Train", "Ozzy", "Rock", 333));
-        song.add(new Song(4,"Jingle Bells", "Cash", "Julesang", 222));
-        song.add(new Song(5,"Smooth C.", "MJ", "plop", 444));
-        song.add(new Song(6,"Memories", "Patty Lapone", "musical", 550));
-
-        // Data lægges over i tabellen
-        tbSongs.setItems(song);
-    }*/
-
+        }
 
 
     @FXML
@@ -303,7 +291,6 @@ public class Controller /*implements Initializable*/ {
         playlistName.clear();
         stage = (Stage) newEditPlaylist.getScene().getWindow();
         stage.close();
-
     }
 
 
