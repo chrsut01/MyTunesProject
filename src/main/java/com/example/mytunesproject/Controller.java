@@ -22,6 +22,8 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -77,7 +79,7 @@ public class Controller /*implements Initializable*/ {
 
 
     @FXML
-    private ListView<SongsOnPlaylist> soP;
+    private ListView<String> soP;
 
 
 
@@ -90,17 +92,17 @@ public class Controller /*implements Initializable*/ {
 
 
   //@Override
-    public void initialize (URL url, ResourceBundle resourceBundle) {
+  /*  public void initialize (URL url, ResourceBundle resourceBundle) {
         tblClmnSongTitle.setCellValueFactory(new PropertyValueFactory<>("songTitle"));
         tblClmnSongArtist.setCellValueFactory(new PropertyValueFactory<Song, String>("Artist"));
         tblClmnSongGenre.setCellValueFactory(new PropertyValueFactory<Song, String>("Genre"));
         tblClmnSongTime.setCellValueFactory((new PropertyValueFactory<>("songTime")));
 
-        initSongTable();
-    }
+       // initSongTable();
+    }*/
 
 
-    //Def. af listen der holder dataene
+ /*   //Def. af listen der holder dataene
     private final ObservableList<Song> song = FXCollections.observableArrayList();
     private ObservableList<Song> loadAllSongs() {
         ObservableList<Song> songs = FXCollections.observableArrayList(); //Lav en tom observableList
@@ -108,9 +110,9 @@ public class Controller /*implements Initializable*/ {
         songs.addAll(songDao.getAllSongs()); //tilfÃ¸j alle sange til variabel.
 
         return songs;
-    }
+    }*/
 
- private void initSongTable(){
+ /*private void initSongTable(){
         //tblClmnSongTitle.setCellValueFactory(new PropertyValueFactory<>("songTitle"));
         //Song.setItems(songDao.getAllSongs());
         tblClmnSongTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSongTitle()));
@@ -119,21 +121,41 @@ public class Controller /*implements Initializable*/ {
        // tblClmnSongTime.setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getSongTime()));
 
         //songs.setItems(loadAllSongs());
-   }
+   }*/
+
         @FXML
         public void initialize() {
-           /* try {
-                songDao.getAllSongs().add(tblClmnSongTitle.get().getSelectedItem());
-                Ordre valgtordre = (Ordre) ordreList.getSelectionModel().getSelectedItem();
-                Vare vare = (Vare) vareNrBeskriv.getSelectionModel().getSelectedItem();
-                valgtordre.addVare(vare);
-            } catch (Exception e) {
-                System.out.println("Noget gik galt, tjek om der er insat et valid nr");
-            }*/
-            //SongDaoImpl songDao = new SongDaoImpl.getAllSongs();
+            /*
             System.out.println(songDao.getAllSongs());
-           // .getItems().addAll(getDataFromSource()); // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members.
+            List<Song> songs = songDao.getAllSongs();
+
+            for (Song song : songs) {
+                //String title = song.getSongTitle();
+                int time = song.getSongTime();
+                String title = song.getSongTitle();
+                String artist = song.getArtist();
+
+                //soP.getItems().add(title);
+                soP.getItems().add(String.valueOf(time));*/
+
+                System.out.println(playlistDao.getAllSongs());
+                List<Song> songs = songDao.getAllSongs();
+
+                for (Playlist playlist : playlists) {
+                    //String title = song.getSongTitle();
+                    int time = song.getSongTime();
+                    String title = song.getSongTitle();
+                    String artist = song.getArtist();
+
+
+                    //soP.getItems().add(title);
+                    soP.getItems().add(String.valueOf(time));
+
+
+            }
         }
+
+
 
 
     @FXML
