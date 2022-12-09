@@ -1,8 +1,5 @@
 package com.example.mytunesproject;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-
 public class Song {
 
         private int songID;
@@ -39,16 +36,4 @@ public class Song {
 
     public int getSongTime() { return this.songTime;
     }
-
-   // public class Student {
-        //private String name;
-        //private int rollNo;
-
-        //Student(String name, int rollNo){
-         //   this.name = name;
-          //  this.rollNo = rollNo;
-        //}
-
-
-
-    }
+}

@@ -16,7 +16,7 @@ public class SongDaoImpl implements SongDao{
             System.err.println("cannot create connection" + e.getMessage());
         }
 
-        System.out.println("connected to the database... ");
+        System.out.println("SongDaoImpl connected to the database... ");
     }
 
     public void saveSong(Song song) {
@@ -70,17 +70,17 @@ public class SongDaoImpl implements SongDao{
     @Override
     public void deleteSong(Song song) {
             try {
-                PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE VALUES(?,?,?,?,?);");
+                PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE songID = ?");
                 ps.setInt(1, song.getSongID());
-                ps.setString(2, song.getSongTitle());
-                ps.setString(3, song.getGenre());
-                ps.setString(4, song.getArtist());
-                ps.setInt(5, song.getSongTime());
+                //ps.setString(2, song.getSongTitle());
+                //ps.setString(3, song.getGenre());
+                //ps.setString(4, song.getArtist());
+                //ps.setInt(5, song.getSongTime());
 
                 ps.executeUpdate();
 
             } catch (SQLException e) {
-                System.err.println("cannot insert record");
+                System.err.println("Cannot delete song");
             }
         }
 

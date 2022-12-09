@@ -18,7 +18,7 @@ public class PlaylistDaoImpl implements PlaylistDao {
             System.err.println("cannot create connection" + e.getMessage());
         }
 
-        System.out.println("connected to the database... ");
+        System.out.println("PlaylistDaoImpl connected to the database... ");
     }
 
     public void savePlaylist(Playlist playlist) {
@@ -54,7 +54,9 @@ public class PlaylistDaoImpl implements PlaylistDao {
 
         } catch (SQLException e) {
             System.err.println("cannot access records");
-        }
+
+            }
+
         return playlists;
     }
 

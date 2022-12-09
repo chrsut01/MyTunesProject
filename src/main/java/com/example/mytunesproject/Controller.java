@@ -82,6 +82,18 @@ public class Controller /*implements Initializable*/ {
         return songs;
     }
 
+    private final ObservableList<String> genre = FXCollections.observableArrayList("Pop", "Rock", "Metal",
+            "Classical", "Jazz", "Folk", "Arena Rock", "R&B", "Hip Hop", "Afrobeats", "Dance");
+     ComboBox comboBox = new ComboBox(genre);
+    public ComboBox<String> Genre() {
+        genre.addAll();
+        return genreDropDown()
+                ;
+    }
+
+
+
+
 
 
     @FXML
@@ -89,14 +101,15 @@ public class Controller /*implements Initializable*/ {
         System.out.println(songDao.getAllSongs());
         List<Song> songs = songDao.getAllSongs();
             for (Song song : songs) {
-                songLV.getItems().add(song);  /*  *** THIS IS WHAT IS STOPPING DIALOG BOXES ****  */
+                //songLV.getItems().add(song);  /*  *** THIS IS WHAT IS STOPPING DIALOG BOXES ****  */
                 //String title = song.getSongTitle();
                 //soP.getItems().add(String.valueOf(time));
                 }
+
             System.out.println(playlistDao.getAllPlaylists());
             List<Playlist> playlists = playlistDao.getAllPlaylists();
                 for (Playlist playlist : playlists) {
-                    playlistLV.getItems().add(playlist);   /*  *** THIS IS WHAT IS STOPPING DIALOG BOXES ****  */
+                    //playlistLV.getItems().add(playlist);   /*  *** THIS IS WHAT IS STOPPING DIALOG BOXES ****  */
                     //String name = playlist.getPlaylistName();
                 }
 
@@ -115,8 +128,35 @@ public class Controller /*implements Initializable*/ {
 
     @FXML
     void deletSongLib(ActionEvent event) {
-       //Song chosenSong = (Song)songLV.getSelectionModel().getSelectedItem();
-        songLV.getItems().remove(songLV.getSelectionModel().getSelectedItem());
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Delete song");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        Label confirm = new Label("Are you sure you want to continue?");
+        dialog.getDialogPane().setContent(confirm);
+        Optional<ButtonType> button = dialog.showAndWait();
+
+        // Her afsluttes dialogen med at man kan trykke på OK
+        // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
+        // **** CAN REMOVE SONG FROM songLV BUT NOT FROM DATABASE ****
+        if (button.get() == ButtonType.OK)
+            try {
+                ObservableList<Integer> chosenIndex = songLV.getSelectionModel().getSelectedIndices();
+                if (chosenIndex.size() == 0)
+                    System.out.println("Choose a song");
+                else
+                    for (Object index : chosenIndex) {
+                        System.out.println("You chose " + songLV.getSelectionModel().getSelectedItem());
+                        Song s = (Song) songLV.getItems().get((int) index);
+                        songLV.getItems().remove(songLV.getSelectionModel().getSelectedItem());
+                        //sdi.sletSang(s.getSongID());
+                        songDao.deleteSong(s);
+
+                    }
+
+            }catch (Exception e) {
+                System.out.println("Something went wrong");
+            }
+
     }
 
     @FXML
@@ -259,5 +299,6 @@ public class Controller /*implements Initializable*/ {
         stage = (Stage) programPane.getScene().getWindow();
         stage.close();
     }
+
 
 }
