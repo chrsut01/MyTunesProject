@@ -10,7 +10,7 @@ public class Playlist {
     private String playlistName;
 
 
-    public String toString() { return playlistID + playlistName;}
+    public String toString() { return playlistName;}
 
 
     public Playlist(int playlistID, String playlistName){

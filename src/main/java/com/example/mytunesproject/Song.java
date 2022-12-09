@@ -10,7 +10,7 @@ public class Song {
         private String artist;
         private String genre;
         private int songTime;
-    public String toString() { return songID + songTitle + artist + genre + songTime;}
+    public String toString() { return songTitle + "          " + artist + "          " + genre + "          " + songTime;}
 
         public Song(int songID, String songTitle, String artist, String genre, int songTime) {
             this.songID = songID;

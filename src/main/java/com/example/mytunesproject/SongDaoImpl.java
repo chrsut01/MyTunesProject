@@ -69,8 +69,22 @@ public class SongDaoImpl implements SongDao{
 
     @Override
     public void deleteSong(Song song) {
+            try {
+                PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE VALUES(?,?,?,?,?);");
+                ps.setInt(1, song.getSongID());
+                ps.setString(2, song.getSongTitle());
+                ps.setString(3, song.getGenre());
+                ps.setString(4, song.getArtist());
+                ps.setInt(5, song.getSongTime());
 
-    }
+                ps.executeUpdate();
+
+            } catch (SQLException e) {
+                System.err.println("cannot insert record");
+            }
+        }
+
+
 
    /* @Override
     public void deleteSong(Song song) {

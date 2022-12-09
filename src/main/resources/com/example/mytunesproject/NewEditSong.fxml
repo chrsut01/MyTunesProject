@@ -22,7 +22,7 @@
       <Label layoutX="53.0" layoutY="141.0" text="Genre:" />
       <Label layoutX="53.0" layoutY="181.0" text="Time:" />
       <Label layoutX="56.0" layoutY="221.0" text="File:" />
-      <ComboBox layoutX="96.0" layoutY="137.0" prefHeight="25.0" prefWidth="73.0" />
+      <ComboBox fx:id="genreDropDown" layoutX="96.0" layoutY="137.0" prefHeight="25.0" prefWidth="73.0" />
       <Label layoutX="152.0" layoutY="17.0" text="New/Edit Song">
          <font>
             <Font size="14.0" />

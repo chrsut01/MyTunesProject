@@ -9,23 +9,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class Controller /*implements Initializable*/ {
@@ -42,11 +36,14 @@ public class Controller /*implements Initializable*/ {
     @FXML
     private TextField insertTitle;
     @FXML
+    private ComboBox<String> genreDropDown;
+    @FXML
     private Pane programPane;
     @FXML
     private Pane newEditSong;
     @FXML
     private Pane newEditPlaylist;
+
 
     @FXML
     private TextField filterField;
@@ -57,14 +54,12 @@ public class Controller /*implements Initializable*/ {
     @FXML
     private TextField playlistName;
 
-
-
     @FXML
-    private ListView<String> playlistLV;
+    private ListView<Playlist> playlistLV;
     @FXML
-    private ListView<String> songLV;
+    private ListView<Song> songLV;
     @FXML
-    private ListView<String> soP;
+    private ListView<Song> soP;
 
 
 
@@ -77,8 +72,6 @@ public class Controller /*implements Initializable*/ {
     public void MyController() {
              }
 
-
-
     //Def. af listen der holder dataene
     private final ObservableList<Song> song = FXCollections.observableArrayList();
     private ObservableList<Song> loadAllSongs() {
@@ -90,43 +83,40 @@ public class Controller /*implements Initializable*/ {
     }
 
 
-        @FXML
-        public void initialize() {
 
-            System.out.println(songDao.getAllSongs());
-            List<Song> songs = songDao.getAllSongs();
-
+    @FXML
+    public void initialize() {
+        System.out.println(songDao.getAllSongs());
+        List<Song> songs = songDao.getAllSongs();
             for (Song song : songs) {
-                String title = song.getSongTitle();
-                //int time = song.getSongTime();
-                //String artist = song.getArtist();
-                //String songInfo = song.getSongTitle();
-
-                songLV.getItems().add(song.toString());
+                songLV.getItems().add(song);  /*  *** THIS IS WHAT IS STOPPING DIALOG BOXES ****  */
+                //String title = song.getSongTitle();
                 //soP.getItems().add(String.valueOf(time));
-            }
-
-                System.out.println(playlistDao.getAllPlaylists());
-                List<Playlist> playlists = playlistDao.getAllPlaylists();
-
+                }
+            System.out.println(playlistDao.getAllPlaylists());
+            List<Playlist> playlists = playlistDao.getAllPlaylists();
                 for (Playlist playlist : playlists) {
-                    String name = playlist.getPlaylistName();
-                    playlistLV.getItems().add(name);
+                    playlistLV.getItems().add(playlist);   /*  *** THIS IS WHAT IS STOPPING DIALOG BOXES ****  */
+                    //String name = playlist.getPlaylistName();
                 }
 
         }
 
-
-
     @FXML
     void addSongPlaylist(ActionEvent event) {
+        List<Playlist> playlists = playlistDao.getAllPlaylists();
+        List<Song> songs = songDao.getAllSongs();
+        for (Playlist playlist : playlists) {
+            soP.getItems().add((Song) song);
+        }
 
     }
 
 
     @FXML
     void deletSongLib(ActionEvent event) {
-
+       //Song chosenSong = (Song)songLV.getSelectionModel().getSelectedItem();
+        songLV.getItems().remove(songLV.getSelectionModel().getSelectedItem());
     }
 
     @FXML
@@ -135,56 +125,10 @@ public class Controller /*implements Initializable*/ {
     }
 
     @FXML
-    void newPlayList(ActionEvent event) throws IOException{
-        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditPlaylist.fxml")));
-        Scene mainWindowScene = new Scene(mainWindowParent);
-        Stage newSongStage = new Stage();
-        newSongStage.setScene(mainWindowScene);
-        newSongStage.initModality(Modality.APPLICATION_MODAL);
-        newSongStage.showAndWait();
+    void deletePlayList(ActionEvent event) {
+        playlistLV.getItems().remove(playlistLV.getSelectionModel().getSelectedItem());
+
     }
-
-
-
-    @FXML
-    void editPlayList(ActionEvent event) throws IOException {
-        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditPlaylist.fxml")));
-        Scene mainWindowScene = new Scene(mainWindowParent);
-        Stage newSongStage = new Stage();
-        newSongStage.setScene(mainWindowScene);
-        newSongStage.initModality(Modality.APPLICATION_MODAL);
-        newSongStage.showAndWait();
-    }
-
-
-    @FXML
-    void deletePlayList(ActionEvent event) {    }
-
-
-
-   @FXML
-    void newSongLib(ActionEvent event) throws IOException {
-       Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditSong.fxml")));
-       Scene mainWindowScene = new Scene(mainWindowParent);
-       Stage newSongStage = new Stage();
-       newSongStage.setScene(mainWindowScene);
-       newSongStage.initModality(Modality.APPLICATION_MODAL);
-       newSongStage.showAndWait();
-    }
-
-
-
-
-    @FXML
-    void editSongLib(ActionEvent event) throws IOException{
-        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditSong.fxml")));
-        Scene mainWindowScene = new Scene(mainWindowParent);
-        Stage newSongStage = new Stage();
-        newSongStage.setScene(mainWindowScene);
-        newSongStage.initModality(Modality.APPLICATION_MODAL);
-        newSongStage.showAndWait();
-    }
-
 
     @FXML
     void forward(ActionEvent event) {
@@ -239,8 +183,25 @@ public class Controller /*implements Initializable*/ {
 
     @FXML
     void saveSongInfo(ActionEvent event) {
+    /*    try {
+            //Song song = new Song(Integer.parseInt(""), + insertTitle.getText(), + insertArtist.getText(),
+            // + insertTime.getText());          + insertFile.getText() + ;
+            //songLV.getItems().add(song);
+            songLV.scrollTo(songLV.getItems().size() - 1);
 
+            //Vare vare = new Vare(Integer.parseInt(varenrInput.getText()), " " + vareBeskrivInput.getText());
+            //vareNrBeskriv.getItems().add(vare);
+            //vareNrBeskriv.scrollTo(vareNrBeskriv.getItems().size() - 1);
+
+        } catch (Exception e) {
+            System.out.println("Noget gik galt, tjek om der er insat et valid nr");
+        }
+        insertTitle.clear();
+        insertArtist.clear();
+        insertTime.clear();
+        insertFile.clear();  */
     }
+
 
     @FXML
     void cancelEditPlaylist(ActionEvent event) {
@@ -255,19 +216,48 @@ public class Controller /*implements Initializable*/ {
 
     }
     @FXML
+    void newPlayList(ActionEvent event) throws IOException{
+        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditPlaylist.fxml")));
+        Scene mainWindowScene = new Scene(mainWindowParent);
+        Stage newSongStage = new Stage();
+        newSongStage.setScene(mainWindowScene);
+        newSongStage.initModality(Modality.APPLICATION_MODAL);
+        newSongStage.showAndWait();
+    }
+
+    @FXML
+    void editPlayList(ActionEvent event) throws IOException {
+        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditPlaylist.fxml")));
+        Scene mainWindowScene = new Scene(mainWindowParent);
+        Stage newSongStage = new Stage();
+        newSongStage.setScene(mainWindowScene);
+        newSongStage.initModality(Modality.APPLICATION_MODAL);
+        newSongStage.showAndWait();
+    }
+    @FXML
+    void newSongLib(ActionEvent event) throws IOException {
+        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditSong.fxml")));
+        Scene mainWindowScene = new Scene(mainWindowParent);
+        Stage newSongStage = new Stage();
+        newSongStage.setScene(mainWindowScene);
+        newSongStage.initModality(Modality.APPLICATION_MODAL);
+        newSongStage.showAndWait();
+    }
+
+    @FXML
+    void editSongLib(ActionEvent event) throws IOException{
+        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditSong.fxml")));
+        Scene mainWindowScene = new Scene(mainWindowParent);
+        Stage newSongStage = new Stage();
+        newSongStage.setScene(mainWindowScene);
+        newSongStage.initModality(Modality.APPLICATION_MODAL);
+        newSongStage.showAndWait();
+    }
+
+    @FXML
     void closeProgram(ActionEvent event) {
         stage = (Stage) programPane.getScene().getWindow();
         stage.close();
     }
 
-   /* @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }*/
-
-
-   /* @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }*/
 }
