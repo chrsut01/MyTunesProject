@@ -7,14 +7,17 @@ public class Song {
         private String artist;
         private String genre;
         private int songTime;
+        private String songFile;
+
     public String toString() { return songTitle + "          " + artist + "          " + genre + "          " + songTime;}
 
-        public Song(int songID, String songTitle, String artist, String genre, int songTime) {
+        public Song(int songID, String songTitle, String artist, String genre, int songTime, String songFile) {
             this.songID = songID;
             this.songTitle = songTitle;
             this.artist = artist;
             this.genre = genre;
             this.songTime = songTime;
+            this.songFile = songFile;
         }
 
     public int getSongID() { return this.songID;
@@ -25,7 +28,7 @@ public class Song {
 
     public String getSongTitle() { return this.songTitle;
     }
-    public void setSongTitle(String songTitle) {
+    public void setSongTitle() {
         this.songTitle = songTitle;
     }
     public String getGenre() { return this.genre;
@@ -35,5 +38,8 @@ public class Song {
     }
 
     public int getSongTime() { return this.songTime;
+    }
+
+    public String getSongFile() { return this.songFile;
     }
 }

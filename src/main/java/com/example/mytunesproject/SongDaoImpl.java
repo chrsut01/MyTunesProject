@@ -21,18 +21,19 @@ public class SongDaoImpl implements SongDao{
 
     public void saveSong(Song song) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO SONG VALUES(?,?,?,?,?);");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO SONG VALUES(?,?,?,?,?,?);");
             ps.setInt(1, song.getSongID());
             ps.setString(2, song.getSongTitle());
             ps.setString(3, song.getGenre());
             ps.setString(4, song.getArtist());
             ps.setInt(5, song.getSongTime());
+            ps.setString(6, song.getSongFile());
 
 
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("cannot insert record");
+            System.err.println("cannot insert record (saveSong)");
         }
     }
 
@@ -49,14 +50,15 @@ public class SongDaoImpl implements SongDao{
                 String  genre = rs.getString(3);
                 String artist = rs.getString(4);
                 int songTime = rs.getInt(5);
+                String songFile = rs.getString(6);
 
-                song = new Song(songID, songTitle, genre, artist, songTime);
+                song = new Song(songID, songTitle, genre, artist, songTime, songFile);
                 songs.add(song);
 
             }
 
         } catch (SQLException e) {
-            System.err.println("cannot access records");
+            System.err.println("cannot access records (SongDaoImpl)");
         }
         return songs;
 
@@ -69,15 +71,23 @@ public class SongDaoImpl implements SongDao{
 
     @Override
     public void deleteSong(Song song) {
+
+            System.out.println("deleting:"+ song.getSongID());
             try {
-                PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE songID = ?");
-                ps.setInt(1, song.getSongID());
+                PreparedStatement pso = con.prepareStatement("DELETE CASCADE FROM Song WHERE songID = ?");
+                pso.setInt(1, (song.getSongID()));
+                //PreparedStatement pp = con.prepareStatement("DELETE FROM Playlist WHERE songID = ?");
+                //pp.setInt(1, (song.getSongID()));
+                //PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE songID = ?");
+                //ps.setInt(1, (song.getSongID()));
+
+                //ps.setString(1, String.valueOf(song.getSongID()));
                 //ps.setString(2, song.getSongTitle());
                 //ps.setString(3, song.getGenre());
                 //ps.setString(4, song.getArtist());
                 //ps.setInt(5, song.getSongTime());
 
-                ps.executeUpdate();
+                pso.executeUpdate();
 
             } catch (SQLException e) {
                 System.err.println("Cannot delete song");

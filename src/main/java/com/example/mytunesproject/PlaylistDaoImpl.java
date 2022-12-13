@@ -15,7 +15,7 @@ public class PlaylistDaoImpl implements PlaylistDao {
 
             con = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-F11OIRMM:1433;databaseName=Mytunes;userName=sa;password=123456;encrypt=true;trustServerCertificate=true");
         } catch (SQLException e) {
-            System.err.println("cannot create connection" + e.getMessage());
+            System.err.println("cannot create connection (PlaylistDaoImpl)" + e.getMessage());
         }
 
         System.out.println("PlaylistDaoImpl connected to the database... ");
@@ -53,7 +53,7 @@ public class PlaylistDaoImpl implements PlaylistDao {
             }
 
         } catch (SQLException e) {
-            System.err.println("cannot access records");
+            System.err.println("cannot access records (PlaylistDaoImpl)");
 
             }
 

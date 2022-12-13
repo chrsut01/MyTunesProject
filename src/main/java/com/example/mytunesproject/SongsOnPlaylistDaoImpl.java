@@ -13,7 +13,7 @@ public class SongsOnPlaylistDaoImpl implements SongsOnPlaylistDao {
         try {
             con = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-F11OIRMM:1433;databaseName=Mytunes;userName=sa;password=123456;encrypt=true;trustServerCertificate=true");
         } catch (SQLException e) {
-            System.err.println("cannot create connection" + e.getMessage());
+            System.err.println("cannot create connection (SongsOnPlaylistDaoImpl)" + e.getMessage());
         }
 
         System.out.println("SongsOnPlaylistDaoImpl connected to the database... ");
