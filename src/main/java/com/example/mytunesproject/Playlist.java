@@ -17,6 +17,8 @@ public class Playlist {
         this.playlistID = playlistID;
         this.playlistName = playlistName;
     }
+    public Playlist() {
+    }
 
     public int getPlaylistID() { return playlistID; }
 

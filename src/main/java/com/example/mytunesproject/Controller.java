@@ -64,7 +64,6 @@ public class Controller {
     private ListView<Song> soP;
 
 
-
     private SongDao songDao = new SongDaoImpl(); //SongDao reference variabel
     private PlaylistDao playlistDao = new PlaylistDaoImpl();
 
@@ -194,27 +193,7 @@ public class Controller {
     }
 
     @FXML
-    void search(ActionEvent event)  {/*
-        ObservableList<List<Object>> allData,
-              JFXTextField filterField, TableView<List<Object>> table; {
-
-            FilteredList<List<Object>> filteredData  = new FilteredList<>(allData, p -> true);
-            filterField.setOnKeyReleased(e ->
-            {
-                filteredData.setPredicate(p  ->
-                {
-                    if (filterField.getText() == null || filterField.getText().isEmpty()){
-                        return true;
-                    }else {
-                        return p.contains(filterField.getText());
-                    }
-                });
-            });
-
-            SortedList<List<Object>> sortedData = new SortedList<>(filteredData);
-            sortedData.comparatorProperty().bind(table.comparatorProperty());
-            table.setItems(sortedData);
-        }*/
+    void search(ActionEvent event)  {
     }
 
 
@@ -271,22 +250,51 @@ public class Controller {
     }
     @FXML
     void newPlayList(ActionEvent event) throws IOException{
-        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditPlaylist.fxml")));
-        Scene mainWindowScene = new Scene(mainWindowParent);
-        Stage newSongStage = new Stage();
-        newSongStage.setScene(mainWindowScene);
-        newSongStage.initModality(Modality.APPLICATION_MODAL);
-        newSongStage.showAndWait();
+        Dialog<ButtonType> dialog = new Dialog();
+
+        dialog.setTitle("edit playlist dialog");
+        dialog.setHeaderText("Edit Playlist");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        TextField playlistTF = new TextField();
+        Label nameLabel = new Label();
+        nameLabel.setText("Enter playlist name:");
+        VBox box = new VBox(nameLabel,playlistTF);
+        dialog.getDialogPane().setContent(box);
+        Optional<ButtonType> ok = dialog.showAndWait();
+        // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
+        if (ok.get() == ButtonType.OK)
+            System.out.println("Playlist name = " + playlistTF.getText());
+
+        Playlist playlist = new Playlist();
+        playlistLV.getItems().add(playlist);
+        playlistLV.scrollTo(songLV.getItems().size() - 1);
+
     }
 
     @FXML
     void editPlayList(ActionEvent event) throws IOException {
-        Parent mainWindowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewEditPlaylist.fxml")));
-        Scene mainWindowScene = new Scene(mainWindowParent);
-        Stage newSongStage = new Stage();
-        newSongStage.setScene(mainWindowScene);
-        newSongStage.initModality(Modality.APPLICATION_MODAL);
-        newSongStage.showAndWait();
+        Dialog<ButtonType> dialog = new Dialog();
+
+        dialog.setTitle("edit playlist dialog");
+        dialog.setHeaderText("Edit Playlist");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        TextField playlistTF = new TextField();
+        Label nameLabel = new Label();
+        nameLabel.setText("Enter playlist name:");
+        VBox box = new VBox(nameLabel,playlistTF);
+        dialog.getDialogPane().setContent(box);
+        Optional<ButtonType> ok = dialog.showAndWait();
+        // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
+        if (ok.get() == ButtonType.OK)
+            System.out.println("Playlist name = " + playlistTF.getText());
+
+        nameLabel.setText(playlistLV.getSelectionModel().getSelectedItem().getPlaylistName());
+
+
+       /* Playlist playlist = new Playlist();
+        playlistLV.getItems().add(playlist);
+        playlistLV.scrollTo(songLV.getItems().size() - 1);*/
+
     }
 
    // SETS UP NEW SONG DIALOG BOX:
@@ -331,7 +339,6 @@ public class Controller {
             songLV.scrollTo(songLV.getItems().size() - 1);
         //System.out.println("Song ID = " + songID + "Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = " + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
 
-
         titleTF.clear();
         artistTF.clear();
         genreTF.clear();
@@ -342,6 +349,7 @@ public class Controller {
     }
 
 // SETS UP EDIT SONG DIALOG BOX:
+    // * * * * CAN EDIT SONG IN PRINT-OUT BUT NOT IN songLV Listview * * * * * *
     @FXML
     void editSongLib(ActionEvent event) throws IOException {
         {
@@ -388,14 +396,18 @@ public class Controller {
 
             System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = " + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
             //songLV.getItems().add(song);
-            //    songLV.scrollTo(songLV.getItems().size() - 1);
-            //    songLV.getSelectionModel().getSelectedItem().setSongTitle();
+              // songLV.scrollTo(songLV.getItems().size() - 1);
+              //songLV.getSelectionModel().getSelectedItem().setSongTitle();
             //titleTF.getText(songLV.getSelectionModel().getSelectedItem().setSongTitle());
 
                 /*  Song song = new Song(Integer.parseInt(""), + titleTF.getText(), + artistTF.getText(), + genreTF.getText(), + timeTF.getText() + fileTF.getText());
                 songLV.getItems().add(song);
                 songLV.scrollTo(songLV.getItems().size() - 1);*/
-
+            titleTF.clear();
+            artistTF.clear();
+            genreTF.clear();
+            timeTF.clear();
+            fileTF.clear();
 
 
         }
