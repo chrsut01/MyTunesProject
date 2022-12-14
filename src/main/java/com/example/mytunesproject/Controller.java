@@ -207,20 +207,7 @@ public class Controller {
 
     @FXML
     void saveSongInfo(ActionEvent event) {
-    /*    try {
-            //Song song = new Song(Integer.parseInt(""), + insertTitle.getText(), + insertArtist.getText(),
-            // + insertTime.getText());          + insertFile.getText() + ;
-            //songLV.getItems().add(song);
-            songLV.scrollTo(songLV.getItems().size() - 1);
-            }
-            catch (Exception e) {
-            System.out.println("Noget gik galt, tjek om der er insat et valid nr");
-        }
-        titleTF.clear();
-        artistTF.clear();
-        genreTF.clear();
-        timeTF.clear();
-        fileTF.clear();  */
+
     }
 
 
@@ -369,17 +356,14 @@ public class Controller {
             timeTF.setText(selectedSong.getSongTime()+"");
             fileTF.setText(selectedSong.getSongFile());
 
-
-            // Her afsluttes dialogen med at man kan trykke på OK
             Optional<ButtonType> ok = dialog.showAndWait();
-            // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
             if (ok.get() == ButtonType.OK)
 
             System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = " + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
 
             //Song song = new Song(ID, titleTF.getText(), artistTF.getText(), genreTF.getText(), Integer.parseInt(timeTF.getText()), fileTF.getText());
-        int time = Integer.parseInt(timeTF.getText());
-            //songDao.deleteSong(selectedSong);
+            int time = Integer.parseInt(timeTF.getText());
+            songDao.deleteSong(selectedSong);
             songDao.saveSong(titleTF.getText(), artistTF.getText(), genreTF.getText(), time, fileTF.getText());
             refreshSongLV();
 
