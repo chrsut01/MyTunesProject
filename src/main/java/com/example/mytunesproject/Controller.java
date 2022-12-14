@@ -84,27 +84,16 @@ public class Controller {
         return songs;
     }
 
-/*    private final ObservableList<String> genre = FXCollections.observableArrayList("Pop", "Rock", "Metal",
-            "Classical", "Jazz", "Folk", "Arena Rock", "R&B", "Hip Hop", "Afrobeats", "Dance");
-     ComboBox comboBox = new ComboBox(genre);
-    public ComboBox<String> Genre() {
-        genre.addAll();
-        return genreDropDown();
-    }*/
-
 
     @FXML
     public void initialize() {
         refreshSongLV();
-
-
             System.out.println(playlistDao.getAllPlaylists());
             List<Playlist> playlists = playlistDao.getAllPlaylists();
                 for (Playlist playlist : playlists) {
                     playlistLV.getItems().add(playlist);
                     //String name = playlist.getPlaylistName();
                 }
-
         }
 
         private void refreshSongLV(){
@@ -123,7 +112,6 @@ public class Controller {
         for (Playlist playlist : playlists) {
             soP.getItems().add((Song) song);
         }
-
     }
 
 
@@ -136,10 +124,7 @@ public class Controller {
         dialog.getDialogPane().setContent(confirm);
         Optional<ButtonType> button = dialog.showAndWait();
 
-        // Her afsluttes dialogen med at man kan trykke på OK
-        // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
-        // **** CAN REMOVE SONG FROM songLV BUT NOT FROM DATABASE ****
-        if (button.get() == ButtonType.OK)
+            if (button.get() == ButtonType.OK)
             try {
                 ObservableList<Integer> chosenIndex = songLV.getSelectionModel().getSelectedIndices();
                 if (chosenIndex.size() == 0)
@@ -149,7 +134,6 @@ public class Controller {
                         System.out.println("You chose " + songLV.getSelectionModel().getSelectedItem());
                         Song s = (Song) songLV.getItems().get((int) index);
                         songLV.getItems().remove(songLV.getSelectionModel().getSelectedItem());
-                        //sdi.sletSang(s.getSongID());
 
                         songDao.deleteSong(s);
                     }
@@ -293,20 +277,12 @@ public class Controller {
             System.out.println("Playlist name = " + playlistTF.getText());
 
         playlistTF.setText(playlistLV.getSelectionModel().getSelectedItem().getPlaylistName());
-        //titleTF.setText(songLV.getSelectionModel().getSelectedItem().getSongTitle());
-
-
-       /* Playlist playlist = new Playlist();
-        playlistLV.getItems().add(playlist);
-        playlistLV.scrollTo(songLV.getItems().size() - 1);*/
 
     }
 
    // SETS UP NEW SONG DIALOG BOX:
     @FXML
     void newSongLib(ActionEvent event) throws IOException {
-            // Dialogen defineres med "ButtonTyes", hvilket betyder at vi kan bestemmer at
-            // dialogen afsluttes med at vi tester på knapperne
             Dialog<ButtonType> dialog = new Dialog();
 
             // Her sættes vinduet op
@@ -335,14 +311,12 @@ public class Controller {
         VBox box = new VBox(titleLabel,titleTF,artistLabel,artistTF,genreLabel,genreTF,timeLabel,timeTF,fileLabel, fileTF,chooseFileButton);
             dialog.getDialogPane().setContent(box);
 
-            // Her afsluttes dialogen med at man kan trykke på OK
           Optional<ButtonType> ok = dialog.showAndWait();
-            // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
             if (ok.get() == ButtonType.OK)
                 System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = " + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
+
             int time = Integer.parseInt(timeTF.getText());
             songDao.saveSong(titleTF.getText(), artistTF.getText(), genreTF.getText(), time, fileTF.getText());
-
             refreshSongLV();
 
         titleTF.clear();
@@ -358,9 +332,7 @@ public class Controller {
     // * * * * CAN EDIT SONG IN PRINT-OUT BUT NOT IN songLV Listview * * * * * *
     @FXML
     void editSongLib(ActionEvent event) throws IOException {
-        {
-            // Dialogen defineres med "ButtonTyes", hvilket betyder at vi kan bestemmer at
-            // dialogen afsluttes med at vi tester på knapperne
+
             Dialog<ButtonType> dialog = new Dialog();
 
             // Her sættes vinduet op
@@ -388,7 +360,7 @@ public class Controller {
             dialog.getDialogPane().setContent(box);
 
             Song selectedSong = songLV.getSelectionModel().getSelectedItem();
-            System.out.println(selectedSong.getSongID());
+            //System.out.println(selectedSong.getSongID());
 
             int ID = selectedSong.getSongID();
             titleTF.setText(selectedSong.getSongTitle());
@@ -405,10 +377,11 @@ public class Controller {
 
             System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = " + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
 
-
-                //  Song song = new Song(Integer.parseInt(""), + titleTF.getText(), + artistTF.getText(), + genreTF.getText(), + timeTF.getText() + fileTF.getText());
-            Song song = new Song(ID, titleTF.getText(), artistTF.getText(), genreTF.getText(), Integer.parseInt(timeTF.getText()), fileTF.getText());
-
+            //Song song = new Song(ID, titleTF.getText(), artistTF.getText(), genreTF.getText(), Integer.parseInt(timeTF.getText()), fileTF.getText());
+        int time = Integer.parseInt(timeTF.getText());
+            //songDao.deleteSong(selectedSong);
+            songDao.saveSong(titleTF.getText(), artistTF.getText(), genreTF.getText(), time, fileTF.getText());
+            refreshSongLV();
 
             titleTF.clear();
             artistTF.clear();
@@ -416,8 +389,6 @@ public class Controller {
             timeTF.clear();
             fileTF.clear();
 
-
-        }
     }
     @FXML
     void closeProgram(ActionEvent event) {

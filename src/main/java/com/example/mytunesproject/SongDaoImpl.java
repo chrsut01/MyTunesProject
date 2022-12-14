@@ -67,42 +67,18 @@ public class SongDaoImpl implements SongDao{
 
     }
 
-    @Override
+
     public void deleteSong(Song song) {
 
-            System.out.println("deleting:"+ song.getSongID());
             try {
-                PreparedStatement pso = con.prepareStatement("DELETE CASCADE FROM Song WHERE songID = ?");
-                pso.setInt(1, (song.getSongID()));
-                //PreparedStatement pp = con.prepareStatement("DELETE FROM Playlist WHERE songID = ?");
-                //pp.setInt(1, (song.getSongID()));
-                //PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE songID = ?");
-                //ps.setInt(1, (song.getSongID()));
+                PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE songID = ?");
+                ps.setInt(1, (song.getSongID()));
 
-                //ps.setString(1, String.valueOf(song.getSongID()));
-                //ps.setString(2, song.getSongTitle());
-                //ps.setString(3, song.getGenre());
-                //ps.setString(4, song.getArtist());
-                //ps.setInt(5, song.getSongTime());
-
-                pso.executeUpdate();
+                ps.executeUpdate();
 
             } catch (SQLException e) {
                 System.err.println("Cannot delete song");
             }
         }
 
-
-
-   /* @Override
-    public void deleteSong(Song song) {
-        songs.remove(song.getClass());
-    }*/
-
-    // @Override
-   // public void savePlaylist(Playlist playlist) {
-    //}
-
-    //@Override
-    //public List<Playlist> getAllPlaylists() { return null;}
 }
