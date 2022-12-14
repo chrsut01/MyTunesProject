@@ -19,16 +19,14 @@ public class SongDaoImpl implements SongDao{
         System.out.println("SongDaoImpl connected to the database... ");
     }
 
-    public void saveSong(Song song) {
+    public void saveSong(String title, String artist, String genre, int time, String file) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO SONG VALUES(?,?,?,?,?,?);");
-            ps.setInt(1, song.getSongID());
-            ps.setString(2, song.getSongTitle());
-            ps.setString(3, song.getGenre());
-            ps.setString(4, song.getArtist());
-            ps.setInt(5, song.getSongTime());
-            ps.setString(6, song.getSongFile());
-
+            PreparedStatement ps = con.prepareStatement("INSERT INTO SONG VALUES(?,?,?,?,?);");
+            ps.setString(1, title);
+            ps.setString(2, artist);
+            ps.setString(3, genre);
+            ps.setInt(4, time);
+            ps.setString(5, file);
 
             ps.executeUpdate();
 

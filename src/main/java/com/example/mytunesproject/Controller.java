@@ -69,12 +69,13 @@ public class Controller {
 
     //@FXML
 
-//TableView<MyModel> tableView;
+    //TableView<MyModel> tableView;
     public void MyController() {
-             }
+    }
 
     //Def. af listen der holder dataene
     private final ObservableList<Song> song = FXCollections.observableArrayList();
+
     private ObservableList<Song> loadAllSongs() {
         ObservableList<Song> songs = FXCollections.observableArrayList(); //Lav en tom observableList
         songDao = new SongDaoImpl(); //Opret songDao objekt
@@ -92,16 +93,10 @@ public class Controller {
     }*/
 
 
-
     @FXML
     public void initialize() {
-        System.out.println(songDao.getAllSongs());
-        List<Song> songs = songDao.getAllSongs();
-            for (Song song : songs) {
-                songLV.getItems().add(song);
-                //String title = song.getSongTitle();
-                //soP.getItems().add(String.valueOf(time));
-                }
+        refreshSongLV();
+
 
             System.out.println(playlistDao.getAllPlaylists());
             List<Playlist> playlists = playlistDao.getAllPlaylists();
@@ -111,6 +106,15 @@ public class Controller {
                 }
 
         }
+
+        private void refreshSongLV(){
+        songLV.getItems().clear();
+        System.out.println(songDao.getAllSongs());
+            List<Song> songs = songDao.getAllSongs();
+            for (Song song : songs) {
+                songLV.getItems().add(song);
+            }
+    }
 
     @FXML
     void addSongPlaylist(ActionEvent event) {
@@ -253,7 +257,7 @@ public class Controller {
         Dialog<ButtonType> dialog = new Dialog();
 
         dialog.setTitle("edit playlist dialog");
-        dialog.setHeaderText("Edit Playlist");
+        dialog.setHeaderText("New Playlist");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         TextField playlistTF = new TextField();
         Label nameLabel = new Label();
@@ -288,7 +292,8 @@ public class Controller {
         if (ok.get() == ButtonType.OK)
             System.out.println("Playlist name = " + playlistTF.getText());
 
-        nameLabel.setText(playlistLV.getSelectionModel().getSelectedItem().getPlaylistName());
+        playlistTF.setText(playlistLV.getSelectionModel().getSelectedItem().getPlaylistName());
+        //titleTF.setText(songLV.getSelectionModel().getSelectedItem().getSongTitle());
 
 
        /* Playlist playlist = new Playlist();
@@ -313,6 +318,8 @@ public class Controller {
             TextField genreTF = new TextField();
             TextField timeTF = new TextField();
             TextField fileTF = new TextField();
+            Button chooseFileButton = new Button("Choose");
+            //chooseFileButton.setEv
 
             Label titleLabel = new Label();
             titleLabel.setText("Enter song title:");
@@ -325,7 +332,7 @@ public class Controller {
             Label fileLabel = new Label();
             fileLabel.setText("Enter song file name:");
 
-        VBox box = new VBox(titleLabel,titleTF,artistLabel,artistTF,genreLabel,genreTF,timeLabel,timeTF,fileLabel, fileTF);
+        VBox box = new VBox(titleLabel,titleTF,artistLabel,artistTF,genreLabel,genreTF,timeLabel,timeTF,fileLabel, fileTF,chooseFileButton);
             dialog.getDialogPane().setContent(box);
 
             // Her afsluttes dialogen med at man kan trykke på OK
@@ -333,11 +340,10 @@ public class Controller {
             // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
             if (ok.get() == ButtonType.OK)
                 System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = " + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
+            int time = Integer.parseInt(timeTF.getText());
+            songDao.saveSong(titleTF.getText(), artistTF.getText(), genreTF.getText(), time, fileTF.getText());
 
-            Song song = new Song((int)(Math.random()*999999), titleTF.getText(), artistTF.getText(), genreTF.getText(), Integer.parseInt(timeTF.getText()), fileTF.getText());
-            songLV.getItems().add(song);
-            songLV.scrollTo(songLV.getItems().size() - 1);
-        //System.out.println("Song ID = " + songID + "Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = " + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
+            refreshSongLV();
 
         titleTF.clear();
         artistTF.clear();
@@ -381,12 +387,15 @@ public class Controller {
             VBox box = new VBox(titleLabel, titleTF, artistLabel, artistTF, genreLabel, genreTF, timeLabel, timeTF, fileLabel, fileTF);
             dialog.getDialogPane().setContent(box);
 
-            titleTF.setText(songLV.getSelectionModel().getSelectedItem().getSongTitle());
-            artistTF.setText(songLV.getSelectionModel().getSelectedItem().getArtist());
-            genreTF.setText(songLV.getSelectionModel().getSelectedItem().getGenre());
-            //timeTF.setText(songLV.getSelectionModel().getSelectedItem().getSongTime());
-            fileTF.setText(songLV.getSelectionModel().getSelectedItem().getSongFile());
-            //soP.getItems().add(String.valueOf(time));
+            Song selectedSong = songLV.getSelectionModel().getSelectedItem();
+            System.out.println(selectedSong.getSongID());
+
+            int ID = selectedSong.getSongID();
+            titleTF.setText(selectedSong.getSongTitle());
+            artistTF.setText(selectedSong.getArtist());
+            genreTF.setText(selectedSong.getGenre());
+            timeTF.setText(selectedSong.getSongTime()+"");
+            fileTF.setText(selectedSong.getSongFile());
 
 
             // Her afsluttes dialogen med at man kan trykke på OK
@@ -395,14 +404,12 @@ public class Controller {
             if (ok.get() == ButtonType.OK)
 
             System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = " + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
-            //songLV.getItems().add(song);
-              // songLV.scrollTo(songLV.getItems().size() - 1);
-              //songLV.getSelectionModel().getSelectedItem().setSongTitle();
-            //titleTF.getText(songLV.getSelectionModel().getSelectedItem().setSongTitle());
 
-                /*  Song song = new Song(Integer.parseInt(""), + titleTF.getText(), + artistTF.getText(), + genreTF.getText(), + timeTF.getText() + fileTF.getText());
-                songLV.getItems().add(song);
-                songLV.scrollTo(songLV.getItems().size() - 1);*/
+
+                //  Song song = new Song(Integer.parseInt(""), + titleTF.getText(), + artistTF.getText(), + genreTF.getText(), + timeTF.getText() + fileTF.getText());
+            Song song = new Song(ID, titleTF.getText(), artistTF.getText(), genreTF.getText(), Integer.parseInt(timeTF.getText()), fileTF.getText());
+
+
             titleTF.clear();
             artistTF.clear();
             genreTF.clear();

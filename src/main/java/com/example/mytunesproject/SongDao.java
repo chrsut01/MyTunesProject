@@ -7,7 +7,7 @@ import java.util.List;
 public interface SongDao {
 
 
-        public void saveSong(Song song); // Create a song
+        public void saveSong(String title, String artist, String genre, int time, String file); // Create a song
 
         public List<Song> getAllSongs(); // Read all songs
 
