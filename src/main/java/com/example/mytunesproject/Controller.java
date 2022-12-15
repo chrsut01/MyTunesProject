@@ -88,12 +88,8 @@ public class Controller {
     @FXML
     public void initialize() {
         refreshSongLV();
-            System.out.println(playlistDao.getAllPlaylists());
-            List<Playlist> playlists = playlistDao.getAllPlaylists();
-                for (Playlist playlist : playlists) {
-                    playlistLV.getItems().add(playlist);
-                    //String name = playlist.getPlaylistName();
-                }
+        refreshPlaylistLV();
+
         }
 
         private void refreshSongLV(){
@@ -104,6 +100,17 @@ public class Controller {
                 songLV.getItems().add(song);
             }
     }
+
+    private void refreshPlaylistLV(){
+        playlistLV.getItems().clear();
+        System.out.println(playlistDao.getAllPlaylists());
+        List<Playlist> playlists = playlistDao.getAllPlaylists();
+        for (Playlist playlist : playlists) {
+            playlistLV.getItems().add(playlist);
+        }
+    }
+
+
 
     @FXML
     void addSongPlaylist(ActionEvent event) {
@@ -141,7 +148,6 @@ public class Controller {
             }catch (Exception e) {
                 System.out.println("Something went wrong");
             }
-
     }
 
     @FXML
@@ -152,7 +158,6 @@ public class Controller {
     @FXML
     void deletePlayList(ActionEvent event) {
         playlistLV.getItems().remove(playlistLV.getSelectionModel().getSelectedItem());
-
     }
 
     @FXML
@@ -182,6 +187,7 @@ public class Controller {
 
     @FXML
     void search(ActionEvent event)  {
+
     }
 
 
@@ -221,28 +227,6 @@ public class Controller {
 
     @FXML
     void saveEditPlaylist(ActionEvent event) {
-
-    }
-    @FXML
-    void newPlayList(ActionEvent event) throws IOException{
-        Dialog<ButtonType> dialog = new Dialog();
-
-        dialog.setTitle("edit playlist dialog");
-        dialog.setHeaderText("New Playlist");
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        TextField playlistTF = new TextField();
-        Label nameLabel = new Label();
-        nameLabel.setText("Enter playlist name:");
-        VBox box = new VBox(nameLabel,playlistTF);
-        dialog.getDialogPane().setContent(box);
-        Optional<ButtonType> ok = dialog.showAndWait();
-        // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
-        if (ok.get() == ButtonType.OK)
-            System.out.println("Playlist name = " + playlistTF.getText());
-
-        Playlist playlist = new Playlist();
-        playlistLV.getItems().add(playlist);
-        playlistLV.scrollTo(songLV.getItems().size() - 1);
 
     }
 
@@ -311,18 +295,47 @@ public class Controller {
         genreTF.clear();
         timeTF.clear();
         fileTF.clear();
+    }
 
+    @FXML
+    void newPlayList(ActionEvent event) throws IOException{
+        Dialog<ButtonType> dialog = new Dialog();
+
+        dialog.setTitle("edit playlist dialog");
+        dialog.setHeaderText("New Playlist");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        TextField playlistTF = new TextField();
+        Label nameLabel = new Label();
+        nameLabel.setText("Enter playlist name:");
+        VBox box = new VBox(nameLabel, playlistTF);
+        dialog.getDialogPane().setContent(box);
+
+        Optional<ButtonType> ok = dialog.showAndWait();
+        if (ok.get() == ButtonType.OK)
+            System.out.println("Playlist name = " + playlistTF.getText());
+
+        Playlist playlist = new Playlist();
+        playlistLV.getItems().add(playlist);
+        //playlistLV.scrollTo(playlistLV.getItems().size() - 1);
+
+        //int totalTime = Integer.parseInt(timeTF.getText());
+        playlistDao.savePlaylist(playlistTF.getText());
+        refreshPlaylistLV();
+
+        playlistTF.clear();
 
     }
 
-// SETS UP EDIT SONG DIALOG BOX:
-    // * * * * CAN EDIT SONG IN PRINT-OUT BUT NOT IN songLV Listview * * * * * *
-    @FXML
+
+
+
+
+    // SETS UP EDIT SONG DIALOG BOX:
+       @FXML
     void editSongLib(ActionEvent event) throws IOException {
 
             Dialog<ButtonType> dialog = new Dialog();
 
-            // Her sættes vinduet op
             dialog.setTitle("edit song dialog");
             dialog.setHeaderText("Edit Song");
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -347,7 +360,6 @@ public class Controller {
             dialog.getDialogPane().setContent(box);
 
             Song selectedSong = songLV.getSelectionModel().getSelectedItem();
-            //System.out.println(selectedSong.getSongID());
 
             int ID = selectedSong.getSongID();
             titleTF.setText(selectedSong.getSongTitle());
@@ -361,7 +373,6 @@ public class Controller {
 
             System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = " + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
 
-            //Song song = new Song(ID, titleTF.getText(), artistTF.getText(), genreTF.getText(), Integer.parseInt(timeTF.getText()), fileTF.getText());
             int time = Integer.parseInt(timeTF.getText());
             songDao.deleteSong(selectedSong);
             songDao.saveSong(titleTF.getText(), artistTF.getText(), genreTF.getText(), time, fileTF.getText());

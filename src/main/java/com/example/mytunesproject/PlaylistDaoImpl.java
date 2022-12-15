@@ -12,7 +12,6 @@ public class PlaylistDaoImpl implements PlaylistDao {
 
     public PlaylistDaoImpl() {
         try {
-
             con = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-F11OIRMM:1433;databaseName=Mytunes;userName=sa;password=123456;encrypt=true;trustServerCertificate=true");
         } catch (SQLException e) {
             System.err.println("cannot create connection (PlaylistDaoImpl)" + e.getMessage());
@@ -21,18 +20,29 @@ public class PlaylistDaoImpl implements PlaylistDao {
         System.out.println("PlaylistDaoImpl connected to the database... ");
     }
 
-    public void savePlaylist(Playlist playlist) {
+    public void savePlaylist(String playlistName) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO PLAYLIST VALUES(?,?);");
-            ps.setInt(1, playlist.getPlaylistID());
-            ps.setString(2, playlist.getPlaylistName());
-
-
+            ps.setString(1, playlistName);
+            ps.setInt(2, 0);
 
             ps.executeUpdate();
 
         } catch (SQLException e) {
             System.err.println("cannot insert record");
+        }
+    }
+
+    public void deletePlaylist(Playlist playlist) {
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM PLAYLIST WHERE playlistID = ?");
+            ps.setInt(1, playlist.getPlaylistID());
+            //ps.setString(2, playlist.getPlaylistName());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("cannot delete playlist");
         }
     }
 
@@ -60,10 +70,5 @@ public class PlaylistDaoImpl implements PlaylistDao {
         return playlists;
     }
 
-    // @Override
-    // public void savePlaylist(Playlist playlist) {
-    //}
 
-    //@Override
-    //public List<Playlist> getAllPlaylists() { return null;}
 }

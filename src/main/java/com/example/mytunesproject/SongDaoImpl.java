@@ -8,7 +8,7 @@ import java.util.List;
 public class SongDaoImpl implements SongDao{
 
 
-    private Connection con; // forbindelsen til databasen
+    private Connection con;
 
     public SongDaoImpl() {
         try { con = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-F11OIRMM:1433;databaseName=Mytunes;userName=sa;password=123456;encrypt=true;trustServerCertificate=true");
@@ -35,6 +35,18 @@ public class SongDaoImpl implements SongDao{
         }
     }
 
+    public void deleteSong(Song song) {
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE songID = ?");
+            ps.setInt(1, (song.getSongID()));
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("Cannot delete song");
+        }
+    }
+
     public List<Song> getAllSongs() {
         List<Song> songs = new ArrayList<>();
         try {
@@ -52,7 +64,6 @@ public class SongDaoImpl implements SongDao{
 
                 song = new Song(songID, songTitle, genre, artist, songTime, songFile);
                 songs.add(song);
-
             }
 
         } catch (SQLException e) {
@@ -66,17 +77,4 @@ public class SongDaoImpl implements SongDao{
     public void updateSong(Song song) {
 
     }
-
-
-    public void deleteSong(Song song) {
-            try {
-                PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE songID = ?");
-                ps.setInt(1, (song.getSongID()));
-                ps.executeUpdate();
-
-            } catch (SQLException e) {
-                System.err.println("Cannot delete song");
-            }
-        }
-
 }

@@ -6,10 +6,9 @@ import java.util.List;
 
 public interface PlaylistDao {
 
+    public void savePlaylist(String playlistName);
+    public void deletePlaylist(Playlist playlist);
 
-
-
-    public void savePlaylist(Playlist playlist); // Create a playlist
 
     public List<Playlist> getAllPlaylists(); // Read all playlists
 
