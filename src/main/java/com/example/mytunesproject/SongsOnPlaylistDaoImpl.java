@@ -1,9 +1,8 @@
 package com.example.mytunesproject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SongsOnPlaylistDaoImpl implements SongsOnPlaylistDao {
 
@@ -33,8 +32,48 @@ public class SongsOnPlaylistDaoImpl implements SongsOnPlaylistDao {
         }
     }
 
-    public void deleteSongPL(int playlistID, int songID) {
+     public void deleteSongPL(Song song) {
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE songID = ?;");
+            ps.setInt(1, (song.getSongID()));
 
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("Cannot delete song");
+        }
+    }
+
+
+    @Override
+    public List<Song> getAllSongsOnPlaylist(Playlist playlist) {
+
+            List<Song> songsOnPlaylist = new ArrayList<>();
+            try {
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM Song, Playlist, SongsOnPlaylist WHERE Playlist.playlistID = SongsOnPlaylist.playlistID AND SongsOnPlaylist.songID = Song.songID AND Playlist.playlistID = ?;");
+                ps.setInt(1, playlist.getPlaylistID());
+                ResultSet rs = ps.executeQuery();
+                Song song;
+                while (rs.next()) {
+                    int songID = rs.getInt(1);
+                    String songTitle = rs.getString(2);
+                    String  genre = rs.getString(3);
+                    String artist = rs.getString(4);
+                    int songTime = rs.getInt(5);
+                    String songFile = rs.getString(6);
+
+                    song = new Song(songID, songTitle, artist,  genre,  songTime,  songFile);
+                    songsOnPlaylist.add(song);
+                }
+
+            } catch (SQLException e) {
+                System.err.println("cannot access records (SongDaoImpl)");
+            }
+            return songsOnPlaylist;
+    }
+
+    public List<Song> songsOnPlaylistDao() {
+        return null;
     }
 
 

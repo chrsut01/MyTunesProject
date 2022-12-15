@@ -9,7 +9,9 @@ public interface SongsOnPlaylistDao {
 
     public void addSongPL(int playlistID, int songID);
 
-    public void deleteSongPL(int playlistID, int songID);
+    public void deleteSongPL(Song song);
+
+    List<Song> getAllSongsOnPlaylist(Playlist playlist);
 
 
     //public void moveDown(ActionEvent event) {

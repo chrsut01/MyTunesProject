@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,10 +17,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -91,7 +94,7 @@ public class Controller {
     public void initialize() {
         refreshSongLV();
         refreshPlaylistLV();
-
+        //refreshSongsOnPlaylistLV();
     }
 
     private void refreshSongLV() {
@@ -112,6 +115,14 @@ public class Controller {
         }
     }
 
+   /* private void refreshSongsOnPlaylistLV() {
+        soP.getItems().clear();
+
+       //System.out.println(songsOnPlaylistDao.getAllSongsOnPlaylist(playlist);
+        List<Song> songs = songDao.getAllSongs();
+            //soP.getItems().
+
+    }*/
 
     @FXML
     void deletSongLib(ActionEvent event) {
@@ -141,10 +152,7 @@ public class Controller {
             }
     }
 
-    @FXML
-    void chosenSong (MouseEvent event) {
-        Song chosenSong = (Song) songLV.getSelectionModel().getSelectedItem();
-    }
+
     @FXML
     void addSongPlaylist(ActionEvent event) {
         //if (button.get() == ButtonType.OK)
@@ -158,15 +166,16 @@ public class Controller {
                         for (Object index : chosenIndex) {
                             System.out.println("You chose " + songLV.getSelectionModel().getSelectedItem());
                             Song s = (Song) songLV.getItems().get((int) index);
-                            for (Object index1 : chosenIndex1) {
-                                Playlist p = (Playlist) playlistLV.getItems().get((int) index1);
-
-                                soP.getItems().add(s);
-                                songsOnPlaylistDao.addSongPL(s.getSongID(), p.getPlaylistID());
+                            Playlist playlist = (Playlist) playlistLV.getSelectionModel().getSelectedItem();
+                            songsOnPlaylistDao.addSongPL(s.getSongID(), playlist.getPlaylistID());
+                            List<Song> songs = songsOnPlaylistDao.getAllSongsOnPlaylist(playlist);
+                            soP.getItems().clear();
+                            for (Song song : songs){
+                                soP.getItems().add(song);
                             }
                         }
-                } else  System.out.println("Choose a song");
-
+                }
+                else  System.out.println("Choose a song");
        }
     @FXML
     void deleteSongfromPlayList(ActionEvent event) {
@@ -291,7 +300,8 @@ public class Controller {
             TextField timeTF = new TextField();
             TextField fileTF = new TextField();
             Button chooseFileButton = new Button("Choose");
-            //chooseFileButton.setEv
+            //chooseFileButton
+
 
             Label titleLabel = new Label();
             titleLabel.setText("Enter song title:");
@@ -321,6 +331,23 @@ public class Controller {
         timeTF.clear();
         fileTF.clear();
     }
+
+ /*   @FXML
+    public void chooseFile (ActionEvent actionEvent) {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select file resource");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("MP3 File", ".mp3"),
+                new FileChooser.ExtensionFilter("WAV File", ".wav");
+
+        Node source = (Node) actionEvent.getSource();
+        File file = fileChooser.showOpenDialog(source.getScene().getWindow());
+
+        if (file != null) {
+            String filepath = file.getPath();
+           // txtFieldFileEdit.setText(filepath);
+        }
+    }*/
 
     @FXML
     void newPlayList(ActionEvent event) throws IOException{
