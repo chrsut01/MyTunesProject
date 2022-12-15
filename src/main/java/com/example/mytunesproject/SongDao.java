@@ -14,10 +14,5 @@ public interface SongDao {
         public void updateSong(Song song);
         public void deleteSong(Song song);
 
-       // public void savePlaylist(Playlist playlist); // Create a playlist
-
-        //public List<Playlist> getAllPlaylists(); // Read all playlists
-
-        // TODO the other CRUD methods are placed here
 
 }

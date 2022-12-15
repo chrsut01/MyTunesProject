@@ -2,6 +2,7 @@ package com.example.mytunesproject;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class SongsOnPlaylistDaoImpl implements SongsOnPlaylistDao {
@@ -18,5 +19,23 @@ public class SongsOnPlaylistDaoImpl implements SongsOnPlaylistDao {
 
         System.out.println("SongsOnPlaylistDaoImpl connected to the database... ");
     }
+
+    public void addSongPL(int playlistID, int songID) {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO SongsOnPLaylist VALUES(?,?);");
+            ps.setInt(1, playlistID);
+            ps.setInt(2, songID);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("cannot insert record (saveSong)");
+        }
+    }
+
+    public void deleteSongPL(int playlistID, int songID) {
+
+    }
+
 
 }

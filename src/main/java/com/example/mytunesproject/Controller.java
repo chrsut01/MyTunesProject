@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -66,6 +67,8 @@ public class Controller {
 
     private SongDao songDao = new SongDaoImpl(); //SongDao reference variabel
     private PlaylistDao playlistDao = new PlaylistDaoImpl();
+    private SongsOnPlaylistDao songsOnPlaylistDao = new SongsOnPlaylistDaoImpl();
+
 
     //@FXML
 
@@ -84,40 +87,28 @@ public class Controller {
         return songs;
     }
 
-
     @FXML
     public void initialize() {
         refreshSongLV();
         refreshPlaylistLV();
 
-        }
-
-        private void refreshSongLV(){
-        songLV.getItems().clear();
-        System.out.println(songDao.getAllSongs());
-            List<Song> songs = songDao.getAllSongs();
-            for (Song song : songs) {
-                songLV.getItems().add(song);
-            }
     }
 
-    private void refreshPlaylistLV(){
+    private void refreshSongLV() {
+        songLV.getItems().clear();
+        System.out.println(songDao.getAllSongs());
+        List<Song> songs = songDao.getAllSongs();
+        for (Song song : songs) {
+            songLV.getItems().add(song);
+        }
+    }
+
+    private void refreshPlaylistLV() {
         playlistLV.getItems().clear();
         System.out.println(playlistDao.getAllPlaylists());
         List<Playlist> playlists = playlistDao.getAllPlaylists();
         for (Playlist playlist : playlists) {
             playlistLV.getItems().add(playlist);
-        }
-    }
-
-
-
-    @FXML
-    void addSongPlaylist(ActionEvent event) {
-        List<Playlist> playlists = playlistDao.getAllPlaylists();
-        List<Song> songs = songDao.getAllSongs();
-        for (Playlist playlist : playlists) {
-            soP.getItems().add((Song) song);
         }
     }
 
@@ -131,7 +122,7 @@ public class Controller {
         dialog.getDialogPane().setContent(confirm);
         Optional<ButtonType> button = dialog.showAndWait();
 
-            if (button.get() == ButtonType.OK)
+        if (button.get() == ButtonType.OK)
             try {
                 ObservableList<Integer> chosenIndex = songLV.getSelectionModel().getSelectedIndices();
                 if (chosenIndex.size() == 0)
@@ -145,20 +136,73 @@ public class Controller {
                         songDao.deleteSong(s);
                     }
 
-            }catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Something went wrong");
             }
     }
 
     @FXML
+    void chosenSong (MouseEvent event) {
+        Song chosenSong = (Song) songLV.getSelectionModel().getSelectedItem();
+    }
+    @FXML
+    void addSongPlaylist(ActionEvent event) {
+        //if (button.get() == ButtonType.OK)
+
+                ObservableList<Integer> chosenIndex = songLV.getSelectionModel().getSelectedIndices();
+                if (chosenIndex.size() != 0) {
+                    ObservableList<Integer> chosenIndex1 = playlistLV.getSelectionModel().getSelectedIndices();
+                    if (chosenIndex1.size() == 0)
+                        System.out.println("Choose a playlist");
+                    else
+                        for (Object index : chosenIndex) {
+                            System.out.println("You chose " + songLV.getSelectionModel().getSelectedItem());
+                            Song s = (Song) songLV.getItems().get((int) index);
+                            for (Object index1 : chosenIndex1) {
+                                Playlist p = (Playlist) playlistLV.getItems().get((int) index1);
+
+                                soP.getItems().add(s);
+                                songsOnPlaylistDao.addSongPL(s.getSongID(), p.getPlaylistID());
+                            }
+                        }
+                } else  System.out.println("Choose a song");
+
+       }
+    @FXML
     void deleteSongfromPlayList(ActionEvent event) {
 
     }
 
+
     @FXML
     void deletePlayList(ActionEvent event) {
-        playlistLV.getItems().remove(playlistLV.getSelectionModel().getSelectedItem());
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("delete playlist");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        Label confirm = new Label("Deleting playlist will not delete any songs");
+        dialog.getDialogPane().setContent(confirm);
+        Optional<ButtonType> button = dialog.showAndWait();
+
+        if (button.get() == ButtonType.OK)
+            try {
+                ObservableList<Integer> chosenIndex = playlistLV.getSelectionModel().getSelectedIndices();
+                if (chosenIndex.size() == 0)
+                    System.out.println("Choose a song");
+                else
+                    for (Object index : chosenIndex) {
+                        System.out.println("You chose " + playlistLV.getSelectionModel().getSelectedItem());
+                        Playlist p = (Playlist) playlistLV.getItems().get((int) index);
+                        playlistLV.getItems().remove(playlistLV.getSelectionModel().getSelectedItem());
+
+                        playlistDao.deletePlaylist(p);
+                    }
+
+            } catch (Exception e) {
+                System.out.println("Something went wrong");
+            }
     }
+
+
 
     @FXML
     void forward(ActionEvent event) {
@@ -230,26 +274,7 @@ public class Controller {
 
     }
 
-    @FXML
-    void editPlayList(ActionEvent event) throws IOException {
-        Dialog<ButtonType> dialog = new Dialog();
 
-        dialog.setTitle("edit playlist dialog");
-        dialog.setHeaderText("Edit Playlist");
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        TextField playlistTF = new TextField();
-        Label nameLabel = new Label();
-        nameLabel.setText("Enter playlist name:");
-        VBox box = new VBox(nameLabel,playlistTF);
-        dialog.getDialogPane().setContent(box);
-        Optional<ButtonType> ok = dialog.showAndWait();
-        // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
-        if (ok.get() == ButtonType.OK)
-            System.out.println("Playlist name = " + playlistTF.getText());
-
-        playlistTF.setText(playlistLV.getSelectionModel().getSelectedItem().getPlaylistName());
-
-    }
 
    // SETS UP NEW SONG DIALOG BOX:
     @FXML
@@ -326,10 +351,6 @@ public class Controller {
 
     }
 
-
-
-
-
     // SETS UP EDIT SONG DIALOG BOX:
        @FXML
     void editSongLib(ActionEvent event) throws IOException {
@@ -385,6 +406,40 @@ public class Controller {
             fileTF.clear();
 
     }
+
+    @FXML
+    void editPlayList(ActionEvent event) throws IOException {
+        Dialog<ButtonType> dialog = new Dialog();
+
+        dialog.setTitle("edit playlist dialog");
+        dialog.setHeaderText("Edit Playlist");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        TextField playlistTF = new TextField();
+        Label nameLabel = new Label();
+        nameLabel.setText("Enter playlist name:");
+        VBox box = new VBox(nameLabel,playlistTF);
+        dialog.getDialogPane().setContent(box);
+
+        Playlist selectedPlaylist = playlistLV.getSelectionModel().getSelectedItem();
+        playlistTF.setText(selectedPlaylist.getPlaylistName());
+
+        Optional<ButtonType> ok = dialog.showAndWait();
+        // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
+        if (ok.get() == ButtonType.OK)
+            System.out.println("Playlist name = " + playlistTF.getText());
+
+        //playlistTF.setText(playlistLV.getSelectionModel().getSelectedItem().getPlaylistName());
+        playlistDao.deletePlaylist(selectedPlaylist);
+        playlistDao.savePlaylist(playlistTF.getText());
+
+        refreshPlaylistLV();
+
+        playlistTF.clear();
+    }
+
+
+
+
     @FXML
     void closeProgram(ActionEvent event) {
         stage = (Stage) programPane.getScene().getWindow();
