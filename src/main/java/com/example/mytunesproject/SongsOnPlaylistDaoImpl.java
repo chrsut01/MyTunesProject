@@ -34,7 +34,7 @@ public class SongsOnPlaylistDaoImpl implements SongsOnPlaylistDao {
 
      public void deleteSongPL(Song song) {
         try {
-            PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE songID = ?;");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM SongsOnPlaylist WHERE songID = ?;");
             ps.setInt(1, (song.getSongID()));
 
             ps.executeUpdate();
@@ -47,10 +47,11 @@ public class SongsOnPlaylistDaoImpl implements SongsOnPlaylistDao {
 
     @Override
     public List<Song> getAllSongsOnPlaylist(Playlist playlist) {
-
             List<Song> songsOnPlaylist = new ArrayList<>();
             try {
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM Song, Playlist, SongsOnPlaylist WHERE Playlist.playlistID = SongsOnPlaylist.playlistID AND SongsOnPlaylist.songID = Song.songID AND Playlist.playlistID = ?;");
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM Song, Playlist, SongsOnPlaylist WHERE " +
+                        "Playlist.playlistID = SongsOnPlaylist.playlistID AND SongsOnPlaylist.songID = Song.songID AND " +
+                        "Playlist.playlistID = ?;");
                 ps.setInt(1, playlist.getPlaylistID());
                 ResultSet rs = ps.executeQuery();
                 Song song;
@@ -70,6 +71,11 @@ public class SongsOnPlaylistDaoImpl implements SongsOnPlaylistDao {
                 System.err.println("cannot access records (SongDaoImpl)");
             }
             return songsOnPlaylist;
+    }
+
+    @Override
+    public List<Song> getAllSongs() {
+        return null;
     }
 
     public List<Song> songsOnPlaylistDao() {

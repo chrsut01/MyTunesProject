@@ -13,6 +13,8 @@ public interface SongsOnPlaylistDao {
 
     List<Song> getAllSongsOnPlaylist(Playlist playlist);
 
+    List<Song> getAllSongs();
+
 
     //public void moveDown(ActionEvent event) {
     //}

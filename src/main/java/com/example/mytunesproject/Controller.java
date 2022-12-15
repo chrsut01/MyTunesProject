@@ -73,9 +73,7 @@ public class Controller {
     private SongsOnPlaylistDao songsOnPlaylistDao = new SongsOnPlaylistDaoImpl();
 
 
-    //@FXML
 
-    //TableView<MyModel> tableView;
     public void MyController() {
     }
 
@@ -94,7 +92,7 @@ public class Controller {
     public void initialize() {
         refreshSongLV();
         refreshPlaylistLV();
-        //refreshSongsOnPlaylistLV();
+       // refreshSongsOnPlaylistLV();
     }
 
     private void refreshSongLV() {
@@ -115,14 +113,25 @@ public class Controller {
         }
     }
 
-   /* private void refreshSongsOnPlaylistLV() {
-        soP.getItems().clear();
+    /*private void refreshSongsOnPlaylistLV() {
+        //soP.getItems().clear();
 
-       //System.out.println(songsOnPlaylistDao.getAllSongsOnPlaylist(playlist);
-        List<Song> songs = songDao.getAllSongs();
-            //soP.getItems().
+        ObservableList<Integer> chosenIndex = playlistLV.getSelectionModel().getSelectedIndices();
+        if (chosenIndex.size() != 0) {
+            //ObservableList<Integer> chosenIndex1 = playlistLV.getSelectionModel().getSelectedIndices();
 
-    }*/
+                for (Object index : chosenIndex) {
+                    //System.out.println("You chose " + songLV.getSelectionModel().getSelectedItem());
+                    //Song s = (Song) songLV.getItems().get((int) index);
+                    Playlist playlist = (Playlist) playlistLV.getSelectionModel().getSelectedItem();
+                    //songsOnPlaylistDao.addSongPL(s.getSongID(), playlist.getPlaylistID());
+                    List<Song> songs = songsOnPlaylistDao.getAllSongsOnPlaylist(playlist);
+                    //soP.getItems().clear();
+                    for (Song song : songs){
+                        soP.getItems().add(song);
+                    }
+                }
+        }*/
 
     @FXML
     void deletSongLib(ActionEvent event) {
@@ -288,7 +297,7 @@ public class Controller {
    // SETS UP NEW SONG DIALOG BOX:
     @FXML
     void newSongLib(ActionEvent event) throws IOException {
-            Dialog<ButtonType> dialog = new Dialog();
+            Dialog<ButtonType> dialog = new Dialog<>();
 
             // Her sættes vinduet op
             dialog.setTitle("new song dialog");
@@ -351,7 +360,7 @@ public class Controller {
 
     @FXML
     void newPlayList(ActionEvent event) throws IOException{
-        Dialog<ButtonType> dialog = new Dialog();
+        Dialog<ButtonType> dialog = new Dialog<>();
 
         dialog.setTitle("edit playlist dialog");
         dialog.setHeaderText("New Playlist");
@@ -370,7 +379,6 @@ public class Controller {
         playlistLV.getItems().add(playlist);
         //playlistLV.scrollTo(playlistLV.getItems().size() - 1);
 
-        //int totalTime = Integer.parseInt(timeTF.getText());
         playlistDao.savePlaylist(playlistTF.getText());
         refreshPlaylistLV();
 
@@ -382,7 +390,7 @@ public class Controller {
        @FXML
     void editSongLib(ActionEvent event) throws IOException {
 
-            Dialog<ButtonType> dialog = new Dialog();
+            Dialog<ButtonType> dialog = new Dialog<>();
 
             dialog.setTitle("edit song dialog");
             dialog.setHeaderText("Edit Song");
@@ -419,7 +427,8 @@ public class Controller {
             Optional<ButtonType> ok = dialog.showAndWait();
             if (ok.get() == ButtonType.OK)
 
-            System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = " + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
+                System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = "
+                        + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
 
             int time = Integer.parseInt(timeTF.getText());
             songDao.deleteSong(selectedSong);
@@ -436,7 +445,7 @@ public class Controller {
 
     @FXML
     void editPlayList(ActionEvent event) throws IOException {
-        Dialog<ButtonType> dialog = new Dialog();
+        Dialog<ButtonType> dialog = new Dialog<>();
 
         dialog.setTitle("edit playlist dialog");
         dialog.setHeaderText("Edit Playlist");
@@ -463,9 +472,6 @@ public class Controller {
 
         playlistTF.clear();
     }
-
-
-
 
     @FXML
     void closeProgram(ActionEvent event) {
