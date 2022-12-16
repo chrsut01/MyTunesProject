@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -215,8 +216,6 @@ public class Controller {
             }
     }
 
-
-
     @FXML
     void forward(ActionEvent event) {
 
@@ -258,10 +257,6 @@ public class Controller {
         stage.close();
     }
 
-    @FXML
-    void chooseFile(ActionEvent event) {
-
-    }
 
     @FXML
     void moreGenre(ActionEvent event) {
@@ -287,9 +282,7 @@ public class Controller {
 
     }
 
-
-
-   // SETS UP NEW SONG DIALOG BOX:
+     // SETS UP NEW SONG DIALOG BOX:
     @FXML
     void newSongLib(ActionEvent event) throws IOException {
             Dialog<ButtonType> dialog = new Dialog<>();
@@ -305,54 +298,50 @@ public class Controller {
             TextField fileTF = new TextField();
             Button chooseFileButton = new Button("Choose");
 
+            chooseFileButton.setOnAction(e -> {
+                        FileChooser fileChooser = new FileChooser();
+                        fileChooser.setTitle("Select file resource");
+                        fileChooser.getExtensionFilters().addAll();
+                        new FileChooser.ExtensionFilter("MP3 File", ".mp3");
+                        new FileChooser.ExtensionFilter("WAV File", ".wav");
+                        Node source = (Node) e.getSource();
+                        File file = fileChooser.showOpenDialog(source.getScene().getWindow());
 
-            Label titleLabel = new Label();
-            titleLabel.setText("Enter song title:");
-            Label artistLabel = new Label();
-            artistLabel.setText("Enter artist:");
-            Label genreLabel = new Label();
-            genreLabel.setText("Enter genre:");
-            Label timeLabel = new Label();
-            timeLabel.setText("Enter time:");
-            Label fileLabel = new Label();
-            fileLabel.setText("Enter song file name:");
+                        if (file != null) {
+                            String filepath = file.getPath();
+                            fileTF.setText(filepath);
+                        }
+            });
+                Label titleLabel = new Label();
+                titleLabel.setText("Enter song title:");
+                Label artistLabel = new Label();
+                artistLabel.setText("Enter artist:");
+                Label genreLabel = new Label();
+                genreLabel.setText("Enter genre:");
+                Label timeLabel = new Label();
+                timeLabel.setText("Enter time:");
+                Label fileLabel = new Label();
+                fileLabel.setText("Enter song file name:");
 
-        VBox box = new VBox(titleLabel,titleTF,artistLabel,artistTF,genreLabel,genreTF,timeLabel,timeTF,fileLabel, fileTF,chooseFileButton);
-            dialog.getDialogPane().setContent(box);
+                VBox box = new VBox(titleLabel, titleTF, artistLabel, artistTF, genreLabel, genreTF, timeLabel, timeTF, fileLabel, fileTF, chooseFileButton);
+                dialog.getDialogPane().setContent(box);
 
-          Optional<ButtonType> ok = dialog.showAndWait();
-            if (ok.get() == ButtonType.OK)
-                System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = "
-                        + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
+                Optional<ButtonType> ok = dialog.showAndWait();
+                if (ok.get() == ButtonType.OK)
+                    System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = "
+                            + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
 
-            int time = Integer.parseInt(timeTF.getText());
-            songDao.saveSong(titleTF.getText(), artistTF.getText(), genreTF.getText(), time, fileTF.getText());
-            refreshSongLV();
+                int time = Integer.parseInt(timeTF.getText());
+                songDao.saveSong(titleTF.getText(), artistTF.getText(), genreTF.getText(), time, fileTF.getText());
+                refreshSongLV();
 
-        titleTF.clear();
-        artistTF.clear();
-        genreTF.clear();
-        timeTF.clear();
-        fileTF.clear();
-    }
+                titleTF.clear();
+                artistTF.clear();
+                genreTF.clear();
+                timeTF.clear();
+                fileTF.clear();
 
-   /* @FXML
-    public void chooseFile (ActionEvent event) {
-
-        FileChooser fileChooser = new FileChooser();  //THIS SHOULD MAYBE REPLACE: TextField fileTF = new TextField(); LINE 296
-
-        fileChooser.setTitle("Select file resource");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("MP3 File", ".mp3"),
-                new FileChooser.ExtensionFilter("WAV File", ".wav");
-
-        Node source = (Node) actionEvent.getSource();
-        File file = fileChooser.showOpenDialog(source.getScene().getWindow());
-
-        if (file != null) {
-            String filepath = file.getPath();
-           // txtFieldFileEdit.setText(filepath);
-        }
-    }*/
+}
 
     @FXML
     void newPlayList(ActionEvent event) throws IOException{
@@ -435,7 +424,6 @@ public class Controller {
             genreTF.clear();
             timeTF.clear();
             fileTF.clear();
-
     }
 
     @FXML
@@ -472,6 +460,4 @@ public class Controller {
         stage = (Stage) programPane.getScene().getWindow();
         stage.close();
     }
-
-
 }
