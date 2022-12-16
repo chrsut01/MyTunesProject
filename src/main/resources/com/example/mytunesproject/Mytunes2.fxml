@@ -19,7 +19,7 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="240.0">
                <children>
-                  <ListView fx:id="playlistLV" prefHeight="454.0" prefWidth="236.0" />
+                  <ListView fx:id="playlistLV" onMouseClicked="#showSoP" prefHeight="454.0" prefWidth="236.0" />
                   <HBox prefHeight="63.0" prefWidth="240.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#newPlayList" text="New...">

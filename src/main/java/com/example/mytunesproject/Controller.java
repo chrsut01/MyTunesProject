@@ -142,7 +142,6 @@ public class Controller {
 
     @FXML
     void addSongPlaylist(ActionEvent event) {
-
                 ObservableList<Integer> chosenIndex = songLV.getSelectionModel().getSelectedIndices();
                 if (chosenIndex.size() != 0) {
                     ObservableList<Integer> chosenIndex1 = playlistLV.getSelectionModel().getSelectedIndices();
@@ -177,6 +176,16 @@ public class Controller {
         }
     }
 
+    @FXML
+    void showSoP(MouseEvent event) {
+        System.out.println("hhhhh¤¤¤");
+         soP.getItems().clear();
+                Playlist playlist = (Playlist) playlistLV.getSelectionModel().getSelectedItem();
+                List<Song> songs = songsOnPlaylistDao.getAllSongsOnPlaylist(playlist);
+                for (Song song : songs) {
+                    soP.getItems().add(song);
+                }
+        }
 
     @FXML
     void deletePlayList(ActionEvent event) {
