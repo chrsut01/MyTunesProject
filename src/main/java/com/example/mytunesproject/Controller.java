@@ -72,8 +72,6 @@ public class Controller {
     private PlaylistDao playlistDao = new PlaylistDaoImpl();
     private SongsOnPlaylistDao songsOnPlaylistDao = new SongsOnPlaylistDaoImpl();
 
-
-
     public void MyController() {
     }
 
@@ -92,7 +90,6 @@ public class Controller {
     public void initialize() {
         refreshSongLV();
         refreshPlaylistLV();
-       // refreshSongsOnPlaylistLV();
     }
 
     private void refreshSongLV() {
@@ -113,25 +110,6 @@ public class Controller {
         }
     }
 
-    /*private void refreshSongsOnPlaylistLV() {
-        //soP.getItems().clear();
-
-        ObservableList<Integer> chosenIndex = playlistLV.getSelectionModel().getSelectedIndices();
-        if (chosenIndex.size() != 0) {
-            //ObservableList<Integer> chosenIndex1 = playlistLV.getSelectionModel().getSelectedIndices();
-
-                for (Object index : chosenIndex) {
-                    //System.out.println("You chose " + songLV.getSelectionModel().getSelectedItem());
-                    //Song s = (Song) songLV.getItems().get((int) index);
-                    Playlist playlist = (Playlist) playlistLV.getSelectionModel().getSelectedItem();
-                    //songsOnPlaylistDao.addSongPL(s.getSongID(), playlist.getPlaylistID());
-                    List<Song> songs = songsOnPlaylistDao.getAllSongsOnPlaylist(playlist);
-                    //soP.getItems().clear();
-                    for (Song song : songs){
-                        soP.getItems().add(song);
-                    }
-                }
-        }*/
 
     @FXML
     void deletSongLib(ActionEvent event) {
@@ -164,7 +142,6 @@ public class Controller {
 
     @FXML
     void addSongPlaylist(ActionEvent event) {
-        //if (button.get() == ButtonType.OK)
 
                 ObservableList<Integer> chosenIndex = songLV.getSelectionModel().getSelectedIndices();
                 if (chosenIndex.size() != 0) {
@@ -188,7 +165,16 @@ public class Controller {
        }
     @FXML
     void deleteSongfromPlayList(ActionEvent event) {
-
+        ObservableList<Integer> chosenIndex = soP.getSelectionModel().getSelectedIndices();
+        if (chosenIndex.size() != 0) {
+            for (Object index : chosenIndex) {
+                Song s = (Song) soP.getItems().get((int) index);
+                Playlist playlist = (Playlist) playlistLV.getSelectionModel().getSelectedItem();
+                songsOnPlaylistDao.deleteSongPL(s);
+                List<Song> songs = songsOnPlaylistDao.getAllSongsOnPlaylist(playlist);
+                soP.getItems().remove(s);
+            }
+        }
     }
 
 
@@ -309,7 +295,6 @@ public class Controller {
             TextField timeTF = new TextField();
             TextField fileTF = new TextField();
             Button chooseFileButton = new Button("Choose");
-            //chooseFileButton
 
 
             Label titleLabel = new Label();
@@ -328,7 +313,8 @@ public class Controller {
 
           Optional<ButtonType> ok = dialog.showAndWait();
             if (ok.get() == ButtonType.OK)
-                System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = " + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
+                System.out.println("Title = " + titleTF.getText() + " Artist = " + artistTF.getText() + " Genre = "
+                        + genreTF.getText() + " Time = " + timeTF.getText() + " File = " + fileTF.getText());
 
             int time = Integer.parseInt(timeTF.getText());
             songDao.saveSong(titleTF.getText(), artistTF.getText(), genreTF.getText(), time, fileTF.getText());
@@ -341,10 +327,11 @@ public class Controller {
         fileTF.clear();
     }
 
- /*   @FXML
-    public void chooseFile (ActionEvent actionEvent) {
+   /* @FXML
+    public void chooseFile (ActionEvent event) {
 
-        FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();  //THIS SHOULD MAYBE REPLACE: TextField fileTF = new TextField(); LINE 296
+
         fileChooser.setTitle("Select file resource");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("MP3 File", ".mp3"),
                 new FileChooser.ExtensionFilter("WAV File", ".wav");
@@ -383,7 +370,6 @@ public class Controller {
         refreshPlaylistLV();
 
         playlistTF.clear();
-
     }
 
     // SETS UP EDIT SONG DIALOG BOX:
@@ -464,7 +450,6 @@ public class Controller {
         if (ok.get() == ButtonType.OK)
             System.out.println("Playlist name = " + playlistTF.getText());
 
-        //playlistTF.setText(playlistLV.getSelectionModel().getSelectedItem().getPlaylistName());
         playlistDao.deletePlaylist(selectedPlaylist);
         playlistDao.savePlaylist(playlistTF.getText());
 
