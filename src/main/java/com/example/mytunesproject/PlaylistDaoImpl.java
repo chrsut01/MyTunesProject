@@ -22,14 +22,14 @@ public class PlaylistDaoImpl implements PlaylistDao {
 
     public void savePlaylist(String playlistName) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO PLAYLIST VALUES(?,?);");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO PLAYLIST VALUES(?);");
             ps.setString(1, playlistName);
-            ps.setInt(2, 0);
+
 
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("cannot insert record");
+            System.err.println("cannot insert record: " + e.getMessage());
         }
     }
 

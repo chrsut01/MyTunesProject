@@ -16,9 +16,4 @@ public interface SongsOnPlaylistDao {
     List<Song> getAllSongs();
 
 
-    //public void moveDown(ActionEvent event) {
-    //}
-
-    //public void moveUp(ActionEvent event) {
-    //}
 }
