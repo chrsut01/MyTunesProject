@@ -37,10 +37,13 @@ public class SongDaoImpl implements SongDao{
 
     public void deleteSong(Song song) {
         try {
-            PreparedStatement ps = con.prepareStatement("DELETE FROM Song WHERE songID = ?;");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM SongsOnPlaylist WHERE songID = ?");
             ps.setInt(1, (song.getSongID()));
-
             ps.executeUpdate();
+
+            PreparedStatement pr = con.prepareStatement("DELETE FROM Song WHERE songID = ?;");
+            pr.setInt(1, (song.getSongID()));
+            pr.executeUpdate();
 
         } catch (SQLException e) {
             System.err.println("Cannot delete song");

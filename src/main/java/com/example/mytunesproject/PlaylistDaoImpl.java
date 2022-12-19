@@ -35,10 +35,12 @@ public class PlaylistDaoImpl implements PlaylistDao {
 
     public void deletePlaylist(Playlist playlist) {
         try {
+            PreparedStatement pr = con.prepareStatement("DELETE FROM SongsOnPlaylist WHERE playlistID = ?;");
+            pr.setInt(1, (playlist.getPlaylistID()));
+            pr.executeUpdate();
+
             PreparedStatement ps = con.prepareStatement("DELETE FROM Playlist WHERE playlistID = ?;");
             ps.setInt(1, (playlist.getPlaylistID()));
-            //ps.setString(2, playlist.getPlaylistName());
-
             ps.executeUpdate();
 
         } catch (SQLException e) {

@@ -340,14 +340,13 @@ public class Controller {
                 genreTF.clear();
                 timeTF.clear();
                 fileTF.clear();
-
 }
 
     @FXML
     void newPlayList(ActionEvent event) throws IOException{
         Dialog<ButtonType> dialog = new Dialog<>();
 
-        dialog.setTitle("edit playlist dialog");
+        dialog.setTitle("new playlist dialog");
         dialog.setHeaderText("New Playlist");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         TextField playlistTF = new TextField();
@@ -362,7 +361,6 @@ public class Controller {
 
         Playlist playlist = new Playlist();
         playlistLV.getItems().add(playlist);
-        //playlistLV.scrollTo(playlistLV.getItems().size() - 1);
 
         playlistDao.savePlaylist(playlistTF.getText());
         refreshPlaylistLV();
