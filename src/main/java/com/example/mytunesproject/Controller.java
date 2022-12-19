@@ -24,8 +24,8 @@ import java.util.*;
 
 public class Controller {
     private Stage stage;
-    private Scene scene;
-    private Parent root;
+    /*private Scene scene;
+    private Parent root;*/
 
     @FXML
     private TextField insertArtist;
@@ -35,15 +35,9 @@ public class Controller {
     private TextField insertTime;
     @FXML
     private TextField insertTitle;
-    @FXML
-    private ComboBox<String> genreDropDown;
-    @FXML
-    private Pane programPane;
-    @FXML
-    private Pane newEditSong;
-    @FXML
-    private Pane newEditPlaylist;
 
+   @FXML
+    private Pane programPane;
 
     @FXML
     private TextField filterField;
@@ -60,27 +54,30 @@ public class Controller {
     private ListView<Song> songLV;
     @FXML
     private ListView<Song> soP;
+    @FXML
+    private Button playButton;
+    final boolean playing = false;
 
 
     private SongDao songDao = new SongDaoImpl(); //SongDao reference variabel
     private PlaylistDao playlistDao = new PlaylistDaoImpl();
     private SongsOnPlaylistDao songsOnPlaylistDao = new SongsOnPlaylistDaoImpl();
 
-    public void MyController() {
-    }
+   /* public void MyController() {
+    }*/
 
 
 
     //Def. af listen der holder dataene
-    private final ObservableList<Song> song = FXCollections.observableArrayList();
+   // private final ObservableList<Song> song = FXCollections.observableArrayList();
 
-    private ObservableList<Song> loadAllSongs() {
+   /* private ObservableList<Song> loadAllSongs() {
         ObservableList<Song> songs = FXCollections.observableArrayList(); //Lav en tom observableList
         songDao = new SongDaoImpl(); //Opret songDao objekt
         songs.addAll(songDao.getAllSongs()); //tilfÃ¸j alle sange til variabel.
 
         return songs;
-    }
+    }*/
 
     @FXML
     public void initialize() {
@@ -227,33 +224,60 @@ public class Controller {
     }
 
    private String getFileFromSelected() {
-        ObservableList<Integer> chosenIndex1 = songLV.getSelectionModel().getSelectedIndices();
-        if (chosenIndex1.size() == 0) {
-            for (Object index : chosenIndex1) {
-                Song s = (Song) songLV.getItems().get((int) index);
-                return s.getSongFile();
-            }
-        }
-      ObservableList<Integer> chosenIndex2 = soP.getSelectionModel().getSelectedIndices();
-        if (chosenIndex2.size() == 0) {
-             for (Object index : chosenIndex2) {
-                Song s = (Song) soP.getItems().get((int) index);
-                return s.getSongFile();
-            }
-            // System.out.println( "you chose: " + soP.getSelectionModel().getSelectedIndices());
-        }
-       return null;
-    }
+       ObservableList<Integer> chosenIndex1 = songLV.getSelectionModel().getSelectedIndices();
+       if (chosenIndex1.size() != 0) {
+           for (Object index : chosenIndex1) {
+               Song s = (Song) songLV.getItems().get((int) index);
+               return s.getSongFile();
+           }
+       }
+           ObservableList<Integer> chosenIndex2 = soP.getSelectionModel().getSelectedIndices();
+           if (chosenIndex2.size() != 0) {
+               for (Object index : chosenIndex2) {
+                   Song s = (Song) soP.getItems().get((int) index);
+                   return s.getSongFile();
+               }
+           }
+           return null;
+   }
 
     @FXML
     void play(ActionEvent event) {
+        /*Media lyd = new Media(String.valueOf(getClass().getResource(getFileFromSelected())));
+        MediaPlayer mediaPlayer = new MediaPlayer(lyd);
+        mediaPlayer.seek(mediaPlayer.getStartTime());
+        mediaPlayer.play();
+        songIsPlaying.setText(mediaPlayer.getMedia().getSource() + "...is playing");*/
 
         Media lyd = new Media(String.valueOf(getClass().getResource(getFileFromSelected())));
         MediaPlayer mediaPlayer = new MediaPlayer(lyd);
         mediaPlayer.seek(mediaPlayer.getStartTime());
-        mediaPlayer.play();
 
-        songIsPlaying.setText(mediaPlayer.getMedia().getSource() + "...is playing");
+       if(mediaPlayer.getStatus() != MediaPlayer.Status.PLAYING){
+           mediaPlayer.play();}
+       else {
+           {
+               mediaPlayer.stop();
+           }
+
+       }
+       /* if (!playing) {
+            mediaPlayer.seek(mediaPlayer.getStartTime());
+            mediaPlayer.play();
+        songIsPlaying.setText(mediaPlayer.getMedia().getSource() + "...is playing");}
+
+        if (playing) {
+            mediaPlayer.stop();
+        }*/
+
+
+
+       /* if (!playing) {
+            Media lyd = new Media(String.valueOf(getClass().getResource(getFileFromSelected())));
+            MediaPlayer mediaPlayer = new MediaPlayer(lyd);
+            mediaPlayer.pause();
+        }*/
+
     }
 
     @FXML
@@ -266,48 +290,11 @@ public class Controller {
 
     }
 
-
-    @FXML
-    void cancelSongInfo(ActionEvent event) {
-        insertTitle.clear();
-        insertArtist.clear();
-        insertTime.clear();
-        insertFile.clear();
-        stage = (Stage) newEditSong.getScene().getWindow();
-        stage.close();
-    }
-
-
-    @FXML
-    void moreGenre(ActionEvent event) {
-
-    }
-
-    @FXML
-    void saveSongInfo(ActionEvent event) {
-
-    }
-
-
-    @FXML
-    void cancelEditPlaylist(ActionEvent event) {
-        playlistName.clear();
-        stage = (Stage) newEditPlaylist.getScene().getWindow();
-        stage.close();
-    }
-
-
-    @FXML
-    void saveEditPlaylist(ActionEvent event) {
-
-    }
-
      // SETS UP NEW SONG DIALOG BOX:
     @FXML
     void newSongLib(ActionEvent event) throws IOException {
             Dialog<ButtonType> dialog = new Dialog<>();
 
-            // Her sættes vinduet op
             dialog.setTitle("new song dialog");
             dialog.setHeaderText("Add a new Song");
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);

@@ -1,5 +1,5 @@
 package com.example.mytunesproject;
-
+/*
 
 public class DaoPatternDemo {
     public static void main(String[] args) {
@@ -10,7 +10,7 @@ public class DaoPatternDemo {
       //  for (Song song : SongDao.getAllSongs()) {
       //      System.out.println("Song: [songID : " + song.getSongID() + ", Title : " + song.getSongTitle() + " ]");
       //  }
-    }
+    }*//*
 
 /*
     //update song
@@ -21,5 +21,5 @@ public class DaoPatternDemo {
     //get the song
         songDao.getSong(0);
         System.out.println("Student: [RollNo : "+student.getRollNo()+", Name : "+student.getName()+" ]");
-*/
-}
+
+}*/

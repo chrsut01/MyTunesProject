@@ -196,7 +196,7 @@
                <font>
                   <Font size="6.0" />
                </font></Button>
-            <Button layoutX="109.0" layoutY="20.0" mnemonicParsing="false" onAction="#play" prefHeight="33.0" prefWidth="34.0" text="play">
+            <Button fx:id="playButton" layoutX="109.0" layoutY="20.0" mnemonicParsing="false" onAction="#play" prefHeight="33.0" prefWidth="34.0" text="play">
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
