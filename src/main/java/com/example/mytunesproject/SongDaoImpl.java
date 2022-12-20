@@ -73,11 +73,5 @@ public class SongDaoImpl implements SongDao{
             System.err.println("cannot access records (SongDaoImpl)");
         }
         return songs;
-
-    }
-
-    @Override
-    public void updateSong(Song song) {
-
     }
 }

@@ -22,7 +22,6 @@ import java.util.Optional;
 public class Controller {
     private Stage stage;
 
-
    @FXML
     private Pane programPane;
 
@@ -42,7 +41,6 @@ public class Controller {
     private ListView<Song> songLV;
     @FXML
     private ListView<Song> soP;
-
     private boolean afspiller = false;
 
     private SongDao songDao = new SongDaoImpl();
@@ -290,11 +288,10 @@ public class Controller {
         playlistTF.setText(selectedPlaylist.getPlaylistName());
 
         Optional<ButtonType> ok = dialog.showAndWait();
-        // Derefter kan vi henter felternes indhold ud og gøre hvad der skal gøres...
         if (ok.get() == ButtonType.OK)
             System.out.println("Playlist name = " + playlistTF.getText());
 
-        playlistDao.deletePlaylist(selectedPlaylist);
+        //playlistDao.deletePlaylist(selectedPlaylist);
         playlistDao.savePlaylist(playlistTF.getText());
 
         refreshPlaylistLV();
@@ -340,7 +337,7 @@ public class Controller {
         }
     }
 
-    // SHOWS ALL SONGS ON A SELECTED PLAYLIST
+    // SHOWS ALL SONGS ON A CLICKED ON SELECTED PLAYLIST
     @FXML
     void showSoP(MouseEvent event) {
         System.out.println("showSoP mouse event works");
@@ -419,7 +416,6 @@ public class Controller {
     void search(ActionEvent event)  {
 
     }
-
 
     @FXML
     void closeProgram(ActionEvent event) {

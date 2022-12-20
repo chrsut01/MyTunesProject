@@ -7,7 +7,6 @@ import java.util.List;
 
 public class PlaylistDaoImpl implements PlaylistDao {
 
-
     private Connection con; // CONNECTS TO DATABASE
 
     public PlaylistDaoImpl() {
@@ -24,7 +23,6 @@ public class PlaylistDaoImpl implements PlaylistDao {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO PLAYLIST VALUES(?);");
             ps.setString(1, playlistName);
-
 
             ps.executeUpdate();
 
@@ -59,7 +57,6 @@ public class PlaylistDaoImpl implements PlaylistDao {
                 int playlistID = rs.getInt(1);
                 String playlistName = rs.getString(2);
 
-
                 playlist = new Playlist(playlistID, playlistName);
                 playlists.add(playlist);
             }
@@ -68,9 +65,6 @@ public class PlaylistDaoImpl implements PlaylistDao {
             System.err.println("cannot access records (PlaylistDaoImpl)");
 
             }
-
         return playlists;
     }
-
-
 }

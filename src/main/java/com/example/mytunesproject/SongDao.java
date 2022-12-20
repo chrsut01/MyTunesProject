@@ -10,7 +10,6 @@ public interface SongDao {
 
         public List<Song> getAllSongs(); // Read all songs
 
-        public void updateSong(Song song);
         public void deleteSong(Song song);
 
 
