@@ -1,8 +1,5 @@
 package com.example.mytunesproject;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-
 import java.util.List;
 
 public interface SongsOnPlaylistDao {
@@ -13,7 +10,4 @@ public interface SongsOnPlaylistDao {
 
     List<Song> getAllSongsOnPlaylist(Playlist playlist);
 
-    List<Song> getAllSongs();
-
-
-}
+  }

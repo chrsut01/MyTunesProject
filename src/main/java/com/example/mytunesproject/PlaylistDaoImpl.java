@@ -8,7 +8,7 @@ import java.util.List;
 public class PlaylistDaoImpl implements PlaylistDao {
 
 
-    private Connection con; // forbindelsen til databasen
+    private Connection con; // CONNECTS TO DATABASE
 
     public PlaylistDaoImpl() {
         try {

@@ -1,7 +1,6 @@
 package com.example.mytunesproject;
 
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface PlaylistDao {

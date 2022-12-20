@@ -7,7 +7,7 @@ import java.util.List;
 public class SongsOnPlaylistDaoImpl implements SongsOnPlaylistDao {
 
 
-    private Connection con; // forbindelsen til databasen
+    private Connection con; // CONNECTS TO DATABASE
 
     public SongsOnPlaylistDaoImpl() {
         try {
@@ -44,7 +44,6 @@ public class SongsOnPlaylistDaoImpl implements SongsOnPlaylistDao {
         }
     }
 
-
     @Override
     public List<Song> getAllSongsOnPlaylist(Playlist playlist) {
             List<Song> songsOnPlaylist = new ArrayList<>();
@@ -72,15 +71,4 @@ public class SongsOnPlaylistDaoImpl implements SongsOnPlaylistDao {
             }
             return songsOnPlaylist;
     }
-
-    @Override
-    public List<Song> getAllSongs() {
-        return null;
-    }
-
-    public List<Song> songsOnPlaylistDao() {
-        return null;
-    }
-
-
 }

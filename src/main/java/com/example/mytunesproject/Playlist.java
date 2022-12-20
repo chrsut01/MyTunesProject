@@ -1,10 +1,5 @@
 package com.example.mytunesproject;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-
-import java.util.Collection;
-
 public class Playlist {
     private int playlistID;
     private String playlistName;

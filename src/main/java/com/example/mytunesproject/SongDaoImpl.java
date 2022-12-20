@@ -8,7 +8,7 @@ import java.util.List;
 public class SongDaoImpl implements SongDao{
 
 
-    private Connection con;
+    private Connection con;  // CONNECTS TO DATABASE
 
     public SongDaoImpl() {
         try { con = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-F11OIRMM:1433;databaseName=Mytunes;userName=sa;password=123456;encrypt=true;trustServerCertificate=true");

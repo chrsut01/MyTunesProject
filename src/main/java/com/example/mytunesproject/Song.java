@@ -23,15 +23,10 @@ public class Song {
 
     public int getSongID() { return this.songID;
     }
-    public int setSongID() {
-        return songID;
-    }
 
     public String getSongTitle() { return this.songTitle;
     }
-    public void setSongTitle() {
-        this.songTitle = songTitle;
-    }
+
     public String getGenre() { return this.genre;
     }
 
